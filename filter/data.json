@@ -1,4 +1,17 @@
 [
+  {"userId": 2, "id": 1, "all-types": "all types", "all-cat": "all categories"},
+  {"userId": 2, "id": 1, "all-types": "blogs", "all-cat": "data governance"},
+  {"userId": 2, "id": 1, "all-types": "brochures", "all-cat": "data privacy"},
+  {"userId": 2, "id": 1, "all-types": "case studies", "all-cat": "data security"},
+  {"userId": 2, "id": 1, "all-types": "ebooks", "all-cat": "webinars"},
+  {"userId": 2, "id": 1, "all-types": "news"},
+  {"userId": 2, "id": 1, "all-types": "press"},
+  {"userId": 2, "id": 1, "all-types": "reports"},
+  {"userId": 2, "id": 1, "all-types": "videos"},
+  {"userId": 2, "id": 1, "all-types": "webinars"},
+  {"userId": 2, "id": 1, "all-types": "whitepapers"},
+
+
   { "userId": 1, "id": 1, "title": "Exploring AI for Business Growth", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#" },
   { "userId": 1, "id": 2, "title": "Sustainable Design Strategies", "img": "", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
   { "userId": 1, "id": 3, "title": "Healthcare Case Study: Digital Transformation", "img": "", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
