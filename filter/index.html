@@ -29,21 +29,31 @@
         <h6 class="text-black font-medium w-full sm:w-auto text-[20px] inline-block">Filter By:</h6>
         <div class="selectbox relative inline-block align-top">
           <div
-            class="box cursor-pointer m-0 overflow-hidden block relative text-[16px] w-[215px] px-[10px] py-[11px] rounded-[5px] max-h-[42px] text-[#D3D7D7]">
-            All Types
+            class="box capitalize cursor-pointer m-0 overflow-hidden block relative text-[16px] w-[215px] px-[10px] py-[11px] rounded-[5px] max-h-[42px] text-[#D3D7D7]">
           </div>
-          <ul class="selectbox-list overflow-y-scroll absolute top-[43px] left-0 w-full bg-white max-h-[290px]">
+          <ul
+            class="selectbox-list h-0 overflow-y-scroll absolute top-[43px] left-0 w-full bg-white max-h-[290px] transition-all duration-300 ease-in-out">
           </ul>
         </div>
+
+
         <div class="selectbox relative inline-block align-top">
           <div
-            class="box cursor-pointer m-0 overflow-hidden block relative text-[16px] w-[215px] px-[10px] py-[11px] rounded-[5px] max-h-[42px] text-[#D3D7D7]">
-            All Categories
+            class="box capitalize cursor-pointer m-0 overflow-hidden block relative text-[16px] w-[215px] px-[10px] py-[11px] rounded-[5px] max-h-[42px] text-[#D3D7D7]">
           </div>
-          <ul class="selectbox-list overflow-y-scroll absolute top-[43px] left-0 w-full bg-white max-h-[290px]">
+          <ul
+            class="selectbox-list h-0  overflow-y-scroll absolute top-[43px] left-0 w-full bg-white max-h-[290px] transition-all duration-300 ease-in-out">
           </ul>
         </div>
       </form>
+
+      <div class="current-filter mb-4 min-h-[40px]">
+      </div>
+
+      <div id="post-container" class="min-h-[600px]">
+        <div class="wrapper w-[calc(100%%+24px)] relative ml-[-12px] flex flex-wrap">
+        </div>
+      </div>
     </div>
   </section>
 

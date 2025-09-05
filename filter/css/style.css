@@ -11,6 +11,16 @@
   margin: 0 auto;
 }
 
+.emptylink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  z-index: 1;
+}
+
 .resource .selectbox .box {
   background-color: rgba(211, 215, 215, 0.3);
 }
@@ -29,6 +39,32 @@
   z-index: -1;
 }
 
+.resource .selectbox.active .box::after {
+  rotate: 180deg;
+}
+
 .selectbox-list {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
+}
+
+.selectbox-list.open {
+  height: auto;
+}
+
+.selectbox-list li.selected {
+  color: #eb0000;
+  background-color: #eb00004d;
+}
+
+.selectbox-list li.selected::after {
+  content: "";
+  position: absolute;
+  top: 55%;
+  right: 23px;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-40%);
+  background: url("/filter/images/check.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
