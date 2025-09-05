@@ -10,3 +10,25 @@
   padding: 0 24px;
   margin: 0 auto;
 }
+
+.resource .selectbox .box {
+  background-color: rgba(211, 215, 215, 0.3);
+}
+
+.resource .selectbox .box::after {
+  content: "";
+  position: absolute;
+  right: 11px;
+  top: 13px;
+  width: 20px;
+  height: 20px;
+  background: url("/filter/images/down.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.selectbox-list {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.24);
+}
