@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const selectboxs = document.querySelectorAll('.selectbox')
   const postcontainer = document.querySelector('#post-container .wrapper')
-  console.log(postcontainer);
 
 
   const typebox = selectboxs[0].querySelector(".box");
