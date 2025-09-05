@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json")
     .then(response => response.json())
     .then(data => {
-      const uniquetypes = [...new Set(data.map(item => item["all-types"]))]
+      let uniquetypes = [...new Set(data.map(item => item["all-types"]))]
       const uniqueCat = [...new Set(data.map(item => item["all-cat"]))]
       const posts = data.filter(item => item.userId === 1);
 
@@ -38,6 +38,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
 
+
+      function applyfilter() {
+        let filtered = posts;
+        const selectedType = typebox.textContent.trim().toLowerCase();
+
+
+        if (selectedType && selectedType !== "all types") {
+          filtered = filtered.filter(post =>
+            post.tag && post.tag.toLowerCase() === selectedType
+          );
+        } else if (selectedType == "all types") {
+          filtered = posts;
+        }
+
+        renderpost(filtered);
+      }
+
       function typelisting() {
         const typeItems = typelist.querySelectorAll("li");
         if (typeItems.length > 0) {
@@ -50,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             typeItems.forEach(el => el.classList.remove("selected"));
             item.classList.add('selected')
             typebox.textContent = item.textContent
+            applyfilter();
           })
         })
       }
@@ -66,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             catitems.forEach(el => el.classList.remove("selected"));
             item.classList.add('selected')
             catbox.textContent = item.textContent
+            applyfilter();
           })
         })
       }
@@ -84,6 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       function renderpost(posts) {
         postcontainer.innerHTML = "";
+
+        if (posts.length === 0) {
+          postcontainer.innerHTML = `<p class="text-center text-gray-600">No posts found</p>`;
+          return;
+        }
 
         posts.forEach(post => {
           const col = document.createElement("div");
