@@ -42,32 +42,21 @@ document.addEventListener("DOMContentLoaded", () => {
       function applyfilter() {
         let filtered = posts;
         const selectedType = typebox.textContent.trim().toLowerCase();
-
+        const selectedCat = catbox.textContent.trim().toLowerCase();
 
         if (selectedType && selectedType !== "all types") {
           filtered = filtered.filter(post =>
             post.tag && post.tag.toLowerCase() === selectedType
           );
-        } else if (selectedType == "all types") {
-          filtered = posts;
         }
 
-        renderpost(filtered);
-      }
-
-      function applyCatfilter() {
-        let filtered = posts;
-        const selectedType = catbox.textContent.trim().toLowerCase();
-
-        if (selectedType && selectedType !== "all categories") {
+        if (selectedCat && selectedCat !== "all categories") {
           filtered = filtered.filter(post =>
-            post.cat && post.cat.toLowerCase() === selectedType
+            post.cat && post.cat.toLowerCase() === selectedCat
           );
-        } else if (selectedType == "all categories") {
-          filtered = posts;
         }
 
-        renderpost(filtered);
+        renderpost(filtered); // ✅ only call once
       }
 
       function typelisting() {
@@ -99,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             catitems.forEach(el => el.classList.remove("selected"));
             item.classList.add('selected')
             catbox.textContent = item.textContent
-            applyCatfilter()
+            applyfilter()
           })
         })
       }
