@@ -188,9 +188,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             applyfilter();
-            if (selectedType !== "all types" || selectedCat !== "all categories") {
-              currentposts();
+            const selectedType = typebox.textContent.trim();
+            const selectedCat = catbox.textContent.trim();
+
+            if (selectedType !== "All Types" || selectedCat !== "All Categories") {
+              const typeVal = selectedType !== "All Types" ? selectedType : "";
+              const catVal = selectedCat !== "All Categories" ? selectedCat : "";
+              currentposts(typeVal, catVal);
+              console.log('in');
+
+            } else {
+              currentpost.innerHTML = "";
+              console.log('out');
+
             }
+
 
           })
         })
