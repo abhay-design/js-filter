@@ -1,13 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const selectboxs = document.querySelectorAll('.selectbox')
   const postcontainer = document.querySelector('#post-container .wrapper')
-
+  const currentpost = document.querySelector('.current-filter')
 
   const typebox = selectboxs[0].querySelector(".box");
   const typelist = selectboxs[0].querySelector(".selectbox-list")
 
   const catbox = selectboxs[1].querySelector(".box");
   const catlist = selectboxs[1].querySelector(".selectbox-list")
+
+  const selectedType = typebox.textContent.trim().toLowerCase();
+  const selectedCat = catbox.textContent.trim().toLowerCase();
 
   fetch("data.json")
     .then(response => response.json())
@@ -57,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         renderpost(filtered); // ✅ only call once
+        currentposts(typebox.textContent.trim(), catbox.textContent.trim());
       }
 
       function typelisting() {
@@ -135,6 +139,33 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
           postcontainer.appendChild(col);
         })
+      }
+
+      function currentposts(selectedType, selectedCat) {
+        currentpost.innerHTML = "";
+
+        if (selectedType && selectedType !== "all types") {
+          const typeTag = document.createElement("span");
+          typeTag.className =
+            "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
+          typeTag.innerHTML = `
+      ${selectedType}
+      <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="type">×</button>
+    `;
+          currentpost.appendChild(typeTag);
+        }
+
+        if (selectedCat && selectedCat !== "all categories") {
+          const catTag = document.createElement("span");
+          catTag.className =
+            "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
+          catTag.innerHTML = `
+      ${selectedCat}
+      <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="cat">×</button>
+    `;
+          currentpost.appendChild(catTag);
+        }
+
       }
 
       typelisting();
