@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json")
     .then(response => response.json())
     .then(data => {
-      let uniquetypes = [...new Set(data.map(item => item["all-types"]))]
+      const uniquetypes = [...new Set(data.map(item => item["all-types"]))]
       const uniqueCat = [...new Set(data.map(item => item["all-cat"]))]
       const posts = data.filter(item => item.userId === 1);
 
@@ -55,6 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
         renderpost(filtered);
       }
 
+      function applyCatfilter() {
+        let filtered = posts;
+        const selectedType = catbox.textContent.trim().toLowerCase();
+
+        if (selectedType && selectedType !== "all categories") {
+          filtered = filtered.filter(post =>
+            post.cat && post.cat.toLowerCase() === selectedType
+          );
+        } else if (selectedType == "all categories") {
+          filtered = posts;
+        }
+
+        renderpost(filtered);
+      }
+
       function typelisting() {
         const typeItems = typelist.querySelectorAll("li");
         if (typeItems.length > 0) {
@@ -84,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             catitems.forEach(el => el.classList.remove("selected"));
             item.classList.add('selected')
             catbox.textContent = item.textContent
-            applyfilter();
+            applyCatfilter()
           })
         })
       }
