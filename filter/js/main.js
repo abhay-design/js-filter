@@ -166,6 +166,35 @@ document.addEventListener("DOMContentLoaded", () => {
           currentpost.appendChild(catTag);
         }
 
+        var clearbtns = document.querySelectorAll('.remove-filter');
+
+        clearbtns.forEach(btn => {
+          btn.addEventListener('click', function () {
+            if (btn.dataset.filter === "type") {
+              typebox.textContent = "All Types"; // reset only type
+
+              const typeItems = typelist.querySelectorAll("li");
+              typeItems.forEach(el => el.classList.remove("selected"));
+              if (typeItems.length > 0) {
+                typeItems[0].classList.add("selected");
+              }
+
+            } else if (btn.dataset.filter === "cat") {
+              catbox.textContent = "All Categories"; // reset only category
+
+              const catItems = catlist.querySelectorAll("li");
+              catItems.forEach(el => el.classList.remove("selected"));
+              if (catItems.length > 0) {
+                catItems[0].classList.add("selected");
+              }
+            }
+
+            applyfilter();
+            currentposts(typebox.textContent.trim(), catbox.textContent.trim());
+          })
+        })
+
+
       }
 
       typelisting();
