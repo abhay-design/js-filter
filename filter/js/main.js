@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const catbox = selectboxs[1].querySelector(".box");
   const catlist = selectboxs[1].querySelector(".selectbox-list")
 
-  const selectedType = typebox.textContent.trim().toLowerCase();
-  const selectedCat = catbox.textContent.trim().toLowerCase();
 
   fetch("data.json")
     .then(response => response.json())
@@ -190,7 +188,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             applyfilter();
-            currentposts(typebox.textContent.trim(), catbox.textContent.trim());
+            if (selectedType !== "all types" || selectedCat !== "all categories") {
+              currentposts();
+            }
+
           })
         })
 
