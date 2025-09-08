@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         paginatedPosts.forEach(post => {
           const col = document.createElement("div");
-          col.className = "col-three w-[calc(33.33%-24px)] mx-[12px] mb-6";
+          col.className = "col-three lg:w-[calc(33.33%-24px)] w-full sm:w-[calc(50%-24px)] mx-[12px] mb-6";
 
           col.innerHTML = `
             <div class="card relative border-silver border-2 rounded-[5px] overflow-hidden hover:shadow-lg h-full min-h-[490px]">

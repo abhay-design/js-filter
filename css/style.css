@@ -6,11 +6,13 @@
 
 .container {
   position: relative;
-  max-width: 1450px;
-  padding: 0 24px;
+  max-width: 1450px !important;
+  padding: 0 20px !important;
   margin: 0 auto;
+  @media (min-width: 2500px) {
+    max-width: 1840px !important;
+  }
 }
-
 .emptylink {
   position: absolute;
   left: 0;
