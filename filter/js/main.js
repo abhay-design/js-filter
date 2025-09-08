@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         filteredPosts = filtered;
         currentPage = 1;
         renderpost(filteredPosts);
-        currentposts(typebox.textContent.trim(), catbox.textContent.trim());
+        currentposts(selectedType, selectedCat);
       }
 
       function typelisting() {
