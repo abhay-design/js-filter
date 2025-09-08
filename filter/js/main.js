@@ -1,44 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const selectboxs = document.querySelectorAll('.selectbox')
-  const postcontainer = document.querySelector('#post-container .wrapper')
-  const currentpost = document.querySelector('.current-filter')
+  const selectboxs = document.querySelectorAll('.selectbox');
+  const postcontainer = document.querySelector('#post-container .wrapper');
+  const currentpost = document.querySelector('.current-filter');
+  const paginationContainer = document.querySelector(".ajax-pagination");
 
   const typebox = selectboxs[0].querySelector(".box");
-  const typelist = selectboxs[0].querySelector(".selectbox-list")
-
+  const typelist = selectboxs[0].querySelector(".selectbox-list");
   const catbox = selectboxs[1].querySelector(".box");
-  const catlist = selectboxs[1].querySelector(".selectbox-list")
+  const catlist = selectboxs[1].querySelector(".selectbox-list");
 
+  let currentPage = 1;
+  const postsPerPage = 10;
+  let filteredPosts = [];
 
   fetch("data.json")
     .then(response => response.json())
     .then(data => {
-      const uniquetypes = [...new Set(data.map(item => item["all-types"]))]
-      const uniqueCat = [...new Set(data.map(item => item["all-cat"]))]
+      const uniquetypes = [...new Set(data.map(item => item["all-types"]))];
+      const uniqueCat = [...new Set(data.map(item => item["all-cat"]))];
       const posts = data.filter(item => item.userId === 1);
 
-      renderpost(posts);
+      filteredPosts = posts;
+      renderpost(filteredPosts);
 
+      // Build type dropdown
       uniquetypes.forEach(type => {
         if (type) {
           const li = document.createElement("li");
           li.textContent = type;
-          li.className =
-            "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+          li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
           typelist.appendChild(li);
         }
-      })
+      });
 
+      // Build category dropdown
       uniqueCat.forEach(cat => {
         if (cat) {
           const li = document.createElement("li");
           li.textContent = cat;
-          li.className =
-            "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
-          catlist.appendChild(li)
+          li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+          catlist.appendChild(li);
         }
-      })
-
+      });
 
       function applyfilter() {
         let filtered = posts;
@@ -46,65 +49,63 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedCat = catbox.textContent.trim().toLowerCase();
 
         if (selectedType && selectedType !== "all types") {
-          filtered = filtered.filter(post =>
-            post.tag && post.tag.toLowerCase() === selectedType
-          );
+          filtered = filtered.filter(post => post.tag && post.tag.toLowerCase() === selectedType);
         }
 
         if (selectedCat && selectedCat !== "all categories") {
-          filtered = filtered.filter(post =>
-            post.cat && post.cat.toLowerCase() === selectedCat
-          );
+          filtered = filtered.filter(post => post.cat && post.cat.toLowerCase() === selectedCat);
         }
 
-        renderpost(filtered); // ✅ only call once
+        filteredPosts = filtered;
+        currentPage = 1;
+        renderpost(filteredPosts);
         currentposts(typebox.textContent.trim(), catbox.textContent.trim());
       }
 
       function typelisting() {
         const typeItems = typelist.querySelectorAll("li");
         if (typeItems.length > 0) {
-          typeItems[0].classList.add('selected')
+          typeItems[0].classList.add('selected');
           typebox.textContent = typeItems[0].textContent;
         }
 
         typeItems.forEach(item => {
-          item.addEventListener('click', function () {
+          item.addEventListener('click', () => {
             typeItems.forEach(el => el.classList.remove("selected"));
-            item.classList.add('selected')
-            typebox.textContent = item.textContent
+            item.classList.add('selected');
+            typebox.textContent = item.textContent;
             applyfilter();
-          })
-        })
+          });
+        });
       }
 
       function catlisting() {
         const catitems = catlist.querySelectorAll("li");
         if (catitems.length > 0) {
-          catitems[0].classList.add('selected')
+          catitems[0].classList.add('selected');
           catbox.textContent = catitems[0].textContent;
         }
 
         catitems.forEach(item => {
-          item.addEventListener('click', function () {
+          item.addEventListener('click', () => {
             catitems.forEach(el => el.classList.remove("selected"));
-            item.classList.add('selected')
-            catbox.textContent = item.textContent
-            applyfilter()
-          })
-        })
+            item.classList.add('selected');
+            catbox.textContent = item.textContent;
+            applyfilter();
+          });
+        });
       }
 
       function toggleclk() {
         selectboxs.forEach(selectbox => {
           if (selectbox) {
-            var list = selectbox.querySelector('.selectbox-list ');
-            selectbox.addEventListener('click', function () {
+            var list = selectbox.querySelector('.selectbox-list');
+            selectbox.addEventListener('click', () => {
               selectbox.classList.toggle('active');
               list.classList.toggle('open');
-            })
+            });
           }
-        })
+        });
       }
 
       function renderpost(posts) {
@@ -112,31 +113,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (posts.length === 0) {
           postcontainer.innerHTML = `<p class="text-center text-gray-600">No posts found</p>`;
+          paginationContainer.innerHTML = "";
           return;
         }
 
-        posts.forEach(post => {
+        const start = (currentPage - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const paginatedPosts = posts.slice(start, end);
+
+        paginatedPosts.forEach(post => {
           const col = document.createElement("div");
           col.className = "col-three w-[calc(33.33%-24px)] mx-[12px] mb-6";
 
           col.innerHTML = `
-        <div class="card relative border-silver border-2 rounded-[5px] overflow-hidden hover:shadow-lg h-full min-h-[490px]">
-          <a href="${post.url}" class="emptylink">.</a>
-          <div class="img-wrap w-full h-[230px]">
-            <img src="${post.img || '/filter/images/lightbeam.png'}" alt="img" class="w-full h-full object-cover">
-          </div>
-          <div class="content-wrap p-4">
-            <div class="bts-wrap flex items-center gap-8 mb-4">
-              <span class="text-[14px] text-[#282728] font-bold">${post.date}</span>
-              <span class="bg-[#ECB22E] text-black text-[14px] font-bold px-4 py-1 rounded-[15px] uppercase">${post.tag}</span>
+            <div class="card relative border-silver border-2 rounded-[5px] overflow-hidden hover:shadow-lg h-full min-h-[490px]">
+              <a href="${post.url}" class="emptylink">.</a>
+              <div class="img-wrap w-full h-[230px]">
+                <img src="${post.img || '/filter/images/lightbeam.png'}" alt="img" class="w-full h-full object-cover">
+              </div>
+              <div class="content-wrap p-4">
+                <div class="bts-wrap flex items-center gap-8 mb-4">
+                  <span class="text-[14px] text-[#282728] font-bold">${post.date}</span>
+                  <span class="bg-[#ECB22E] text-black text-[14px] font-bold px-4 py-1 rounded-[15px] uppercase">${post.tag}</span>
+                </div>
+                <h5 class="font-semibold text-[#282728] mb-2 text-[24px]">${post.title}</h5>
+                <a href="${post.url}" class="font-semibold absolute bottom-[20px] left-4 text-lg hover:text-black mt-auto">${post["link-txt"]}</a>
+              </div>
             </div>
-            <h5 class="font-semibold text-[#282728] mb-2 text-[24px]">${post.title}</h5>
-            <a href="${post.url}" class="font-semibold absolute bottom-[20px] left-4 text-lg hover:text-black mt-auto">${post["link-txt"]}</a>
-          </div>
-        </div>
-      `;
+          `;
           postcontainer.appendChild(col);
-        })
+        });
+
+        renderPagination(posts.length);
+      }
+
+      function renderPagination(totalPosts) {
+        paginationContainer.innerHTML = "";
+        const totalPages = Math.ceil(totalPosts / postsPerPage);
+        if (totalPages <= 1) return;
+
+        // Prev button
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "Prev";
+        prevBtn.className = `px-4 py-2 rounded-md border ${currentPage === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderpost(filteredPosts);
+          }
+        });
+        paginationContainer.appendChild(prevBtn);
+
+        // Number buttons
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.className = `px-4 py-2 rounded-md border ${i === currentPage ? "bg-[#eb0000] text-white" : "bg-white text-black"}`;
+          btn.addEventListener("click", () => {
+            currentPage = i;
+            renderpost(filteredPosts);
+          });
+          paginationContainer.appendChild(btn);
+        }
+
+        // Next button
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Next";
+        nextBtn.className = `px-4 py-2 rounded-md border ${currentPage === totalPages ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.addEventListener("click", () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderpost(filteredPosts);
+          }
+        });
+        paginationContainer.appendChild(nextBtn);
       }
 
       function currentposts(selectedType, selectedCat) {
@@ -144,75 +196,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (selectedType && selectedType !== "all types") {
           const typeTag = document.createElement("span");
-          typeTag.className =
-            "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
-          typeTag.innerHTML = `
-      ${selectedType}
-      <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="type">×</button>
-    `;
+          typeTag.className = "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
+          typeTag.innerHTML = `${selectedType} <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="type">×</button>`;
           currentpost.appendChild(typeTag);
         }
 
         if (selectedCat && selectedCat !== "all categories") {
           const catTag = document.createElement("span");
-          catTag.className =
-            "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
-          catTag.innerHTML = `
-      ${selectedCat}
-      <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="cat">×</button>
-    `;
+          catTag.className = "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
+          catTag.innerHTML = `${selectedCat} <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="cat">×</button>`;
           currentpost.appendChild(catTag);
         }
 
-        var clearbtns = document.querySelectorAll('.remove-filter');
-
+        const clearbtns = document.querySelectorAll('.remove-filter');
         clearbtns.forEach(btn => {
-          btn.addEventListener('click', function () {
+          btn.addEventListener('click', () => {
             if (btn.dataset.filter === "type") {
-              typebox.textContent = "All Types"; // reset only type
-
+              typebox.textContent = "All Types";
               const typeItems = typelist.querySelectorAll("li");
               typeItems.forEach(el => el.classList.remove("selected"));
-              if (typeItems.length > 0) {
-                typeItems[0].classList.add("selected");
-              }
-
+              if (typeItems.length > 0) typeItems[0].classList.add("selected");
             } else if (btn.dataset.filter === "cat") {
-              catbox.textContent = "All Categories"; // reset only category
-
+              catbox.textContent = "All Categories";
               const catItems = catlist.querySelectorAll("li");
               catItems.forEach(el => el.classList.remove("selected"));
-              if (catItems.length > 0) {
-                catItems[0].classList.add("selected");
-              }
+              if (catItems.length > 0) catItems[0].classList.add("selected");
             }
 
             applyfilter();
             const selectedType = typebox.textContent.trim();
             const selectedCat = catbox.textContent.trim();
-
             if (selectedType !== "All Types" || selectedCat !== "All Categories") {
-              const typeVal = selectedType !== "All Types" ? selectedType : "";
-              const catVal = selectedCat !== "All Categories" ? selectedCat : "";
-              currentposts(typeVal, catVal);
-              console.log('in');
-
+              currentposts(selectedType, selectedCat);
             } else {
               currentpost.innerHTML = "";
-              console.log('out');
-
             }
-
-
-          })
-        })
-
-
+          });
+        });
       }
 
       typelisting();
-      catlisting()
-      toggleclk()
+      catlisting();
+      toggleclk();
     })
     .catch(error => console.error("Error loading JSON:", error));
 });
