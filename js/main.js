@@ -23,25 +23,28 @@ document.addEventListener("DOMContentLoaded", () => {
       filteredPosts = posts;
       renderpost(filteredPosts);
 
-      // Build type dropdown
-      uniquetypes.forEach(type => {
-        if (type) {
-          const li = document.createElement("li");
-          li.textContent = type;
-          li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
-          typelist.appendChild(li);
-        }
-      });
+      function renderlist() {
 
-      // Build category dropdown
-      uniqueCat.forEach(cat => {
-        if (cat) {
-          const li = document.createElement("li");
-          li.textContent = cat;
-          li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
-          catlist.appendChild(li);
-        }
-      });
+        uniquetypes.forEach(type => {
+          if (type) {
+            const li = document.createElement("li");
+            li.textContent = type;
+            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+            typelist.appendChild(li);
+          }
+        });
+
+        uniqueCat.forEach(cat => {
+          if (cat) {
+            const li = document.createElement("li");
+            li.textContent = cat;
+            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+            catlist.appendChild(li);
+          }
+        });
+
+        applyfilter()
+      }
 
       function applyfilter() {
         let filtered = posts;
@@ -58,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         filteredPosts = filtered;
         currentPage = 1;
+        // renderlist(selectedType, selectedCat);
         renderpost(filteredPosts);
         currentposts(selectedType, selectedCat);
       }
@@ -129,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="card relative border-silver border-2 rounded-[5px] overflow-hidden hover:shadow-lg h-full min-h-[490px]">
               <a href="${post.url}" class="emptylink">.</a>
               <div class="img-wrap w-full h-[230px]">
-                <img src="${post.img || '/filter/images/lightbeam.png'}" alt="img" class="w-full h-full object-cover">
+                <img src="${post.img || '/images/lightbeam.png'}" alt="img" class="w-full h-full object-cover">
               </div>
               <div class="content-wrap p-4">
                 <div class="bts-wrap flex items-center gap-8 mb-4">
@@ -239,9 +243,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
+      renderlist();
       typelisting();
       catlisting();
       toggleclk();
+
     })
     .catch(error => console.error("Error loading JSON:", error));
 });

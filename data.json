@@ -1,0 +1,83 @@
+[
+  {"userId": 2, "id": 1, "all-types": "all types", "all-cat": "all categories"},
+  {"userId": 2, "id": 2, "all-types": "blogs", "all-cat": "data governance"},
+  {"userId": 2, "id": 3, "all-types": "brochures", "all-cat": "data privacy"},
+  {"userId": 2, "id": 4, "all-types": "case studies", "all-cat": "data security"},
+  {"userId": 2, "id": 5, "all-types": "ebooks", "all-cat": "webinars"},
+  {"userId": 2, "id": 6, "all-types": "news"},
+  {"userId": 2, "id": 7, "all-types": "press"},
+  {"userId": 2, "id": 8, "all-types": "reports"},
+  {"userId": 2, "id": 9, "all-types": "videos"},
+  {"userId": 2, "id": 10, "all-types": "webinars"},
+  {"userId": 2, "id": 11, "all-types": "whitepapers"},
+
+
+  { "userId": 1, "id": 1, "title": "Exploring AI for Business Growth", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 2, "title": "Sustainable Design Strategies", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 3, "title": "Healthcare Case Study: Digital Transformation", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 5, "title": "Industry News: Cloud Computing Trends", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 7, "title": "Annual Market Research Report", "img": "/images/reports.jpg", "date": "09-04-2025", "tag": "reports", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 8, "title": "Video Tutorial: Machine Learning Basics", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 9, "title": "Webinar: Future of Digital Marketing", "img": "/images/webinars.png", "date": "09-04-2025", "tag": "webinars", "link-txt": "learn more", "url": "#", "cat": "webinars" },
+  { "userId": 1, "id": 10, "title": "Whitepaper: Cybersecurity Best Practices", "img": "/images/whitepaper.png", "date": "09-04-2025", "tag": "whitepapers", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 11, "title": "AI Trends in 2025", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data privacy" },
+  { "userId": 1, "id": 12, "title": "Corporate Services Brochure", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#", "cat": "data privacy"  },
+  { "userId": 1, "id": 13, "title": "Case Study: Retail Analytics Success", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 15, "title": "Breaking News: Renewable Energy Growth", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 17, "title": "Quarterly Performance Report", "img": "/images/reports.jpg", "date": "09-04-2025", "tag": "reports", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 18, "title": "Video Demo: Cloud Platform Walkthrough", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 19, "title": "Live Webinar: AI in Healthcare", "img": "/images/webinars.png", "date": "09-04-2025", "tag": "webinars", "link-txt": "learn more", "url": "#", "cat": "webinars" },
+  { "userId": 1, "id": 20, "title": "Whitepaper: Future of Automation", "img": "/images/whitepaper.png", "date": "09-04-2025", "tag": "whitepapers", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 21, "title": "Blog: Data Science Career Paths", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data privacy" },
+  { "userId": 1, "id": 22, "title": "Brochure: Smart City Solutions", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 23, "title": "Case Study: Manufacturing Efficiency", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#", "cat": "data privacy"  },
+  { "userId": 1, "id": 24, "title": "Ebook: Mastering Data Visualization", "img": "/images/ebooks.png", "date": "09-04-2025", "tag": "ebooks", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 25, "title": "Tech News Update: Quantum Computing", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 28, "title": "Video Case Study: Customer Success", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 30, "title": "Whitepaper: Smart Contracts Explained", "img": "/images/whitepaper.png", "date": "09-04-2025", "tag": "whitepapers", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 31, "title": "Blog: Startup Scaling Tactics", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data security" },
+  { "userId": 1, "id": 32, "title": "Brochure: Fintech Services Portfolio", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 33, "title": "Case Study: ERP Implementation", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 34, "title": "Ebook: Remote Work Culture", "img": "/images/ebooks.png", "date": "09-04-2025", "tag": "ebooks", "link-txt": "learn more", "url": "#", "cat": "data security" },
+  { "userId": 1, "id": 35, "title": "News: Advances in AR/VR", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#", "cat": "data security" },
+  { "userId": 1, "id": 38, "title": "Video Interview: Industry Experts", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 40, "title": "Whitepaper: Cloud Cost Optimization", "img": "/images/whitepaper.png", "date": "09-04-2025", "tag": "whitepapers", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 41, "title": "Blog: Marketing Automation Insights", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data security" },
+  { "userId": 1, "id": 42, "title": "Brochure: Healthcare IT Services", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 43, "title": "Case Study: Logistics Optimization", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 44, "title": "Ebook: Guide to Financial Analytics", "img": "/images/ebooks.png", "date": "09-04-2025", "tag": "ebooks", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 45, "title": "News: Breakthrough in Green Energy", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 48, "title": "Video Walkthrough: SaaS Platform Demo", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 51, "title": "Blog: UX Design Best Practices", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 52, "title": "Brochure: AI-powered Tools Suite", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 53, "title": "Case Study: Hospitality Service Analytics", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 54, "title": "Ebook: Roadmap to Digital Adoption", "img": "/images/ebooks.png", "date": "09-04-2025", "tag": "ebooks", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 55, "title": "News: AI in Autonomous Vehicles", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 58, "title": "Video Course: Cloud Security Essentials", "img": "/images/video.png", "date": "09-04-2025", "tag": "videos", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 61, "title": "Blog: Agile Project Management Tips", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 62, "title": "Brochure: Cloud Solutions Portfolio", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 63, "title": "Case Study: Telecom Digital Shift", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 65, "title": "News: Advances in Space Tech", "img": "/images/news.png", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 71, "title": "Blog: SaaS Pricing Models", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 72, "title": "Brochure: Supply Chain Solutions", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 73, "title": "Case Study: AI in Legal Services", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 75, "title": "News: Semiconductor Industry Shifts", "img": "", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 81, "title": "Blog: AI in Creative Industries", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 82, "title": "Brochure: HR Tech Services", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 83, "title": "Case Study: Education Analytics", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 85, "title": "News: Robotics and Automation", "img": "", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" },
+
+  { "userId": 1, "id": 91, "title": "Blog: Product Management Insights", "img": "", "date": "09-04-2025", "tag": "blogs", "link-txt": "learn more", "url": "#", "cat": "data governance" },
+  { "userId": 1, "id": 92, "title": "Brochure: Travel Tech Solutions", "img": "/images/brochurs.png", "date": "09-04-2025", "tag": "brochures", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 93, "title": "Case Study: AI in Insurance Claims", "img": "/images/studies.png", "date": "09-04-2025", "tag": "case studies", "link-txt": "learn more", "url": "#" },
+  { "userId": 1, "id": 95, "title": "News: Advances in Biotechnology", "img": "", "date": "09-04-2025", "tag": "news", "link-txt": "learn more", "url": "#" }
+]
+
