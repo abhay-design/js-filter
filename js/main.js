@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectboxs = document.querySelectorAll('.selectbox');
   const postcontainer = document.querySelector('#post-container .wrapper');
   const currentpost = document.querySelector('.current-filter');
+  const sectionContainer = document.querySelector('#filter-form');
   const paginationContainer = document.querySelector(".ajax-pagination");
 
   const typebox = selectboxs[0].querySelector(".box");
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (currentPage > 1) {
             currentPage--;
             renderpost(filteredPosts);
+            sectionContainer.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
         paginationContainer.appendChild(prevBtn);
@@ -177,6 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
           btn.addEventListener("click", () => {
             currentPage = i;
             renderpost(filteredPosts);
+            sectionContainer.scrollIntoView({ behavior: "smooth", block: "start" });
           });
           paginationContainer.appendChild(btn);
         }
@@ -190,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (currentPage < totalPages) {
             currentPage++;
             renderpost(filteredPosts);
+            sectionContainer.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
         paginationContainer.appendChild(nextBtn);
