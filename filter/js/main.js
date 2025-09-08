@@ -213,9 +213,11 @@ document.addEventListener("DOMContentLoaded", () => {
           btn.addEventListener('click', () => {
             if (btn.dataset.filter === "type") {
               typebox.textContent = "All Types";
+
               const typeItems = typelist.querySelectorAll("li");
               typeItems.forEach(el => el.classList.remove("selected"));
               if (typeItems.length > 0) typeItems[0].classList.add("selected");
+
             } else if (btn.dataset.filter === "cat") {
               catbox.textContent = "All Categories";
               const catItems = catlist.querySelectorAll("li");
@@ -227,7 +229,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const selectedType = typebox.textContent.trim();
             const selectedCat = catbox.textContent.trim();
             if (selectedType !== "All Types" || selectedCat !== "All Categories") {
-              currentposts(selectedType, selectedCat);
+              const typeVal = selectedType !== "All Types" ? selectedType : "";
+              const catVal = selectedCat !== "All Categories" ? selectedCat : "";
+              currentposts(typeVal, catVal);
             } else {
               currentpost.innerHTML = "";
             }
