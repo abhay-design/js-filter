@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       filteredPosts = posts;
       renderpost(filteredPosts);
 
-      function renderlist() {
+      function renderlist(selectedType = "", selectedCat = "") {
         typelist.innerHTML = "";
         catlist.innerHTML = "";
 
@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
             li.textContent = type;
             li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
             if (index === 0) {
+              li.classList.add("selected");
+              typebox.textContent = type;
+            }
+            if (selectedType.toLowerCase() === type.toLowerCase()) {
               li.classList.add("selected");
               typebox.textContent = type;
             }
@@ -47,12 +51,24 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        uniqueCat.forEach((cat, index) => {
+        let catsToShow = uniqueCat;
+
+        if (selectedType && selectedType !== "all types") {
+          const postsForType = posts.filter(p => p.tag && p.tag.toLowerCase() === selectedType.toLowerCase());
+          catsToShow = [...new Set(postsForType.map(p => p.cat).filter(Boolean))];
+          catsToShow.unshift("All Categories"); // add option back
+        }
+
+        catsToShow.forEach((cat, index) => {
           if (cat) {
             const li = document.createElement("li");
             li.textContent = cat;
             li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
             if (index === 0) {
+              li.classList.add("selected");
+              catbox.textContent = cat;
+            }
+            if (selectedCat.toLowerCase() === cat.toLowerCase()) {
               li.classList.add("selected");
               catbox.textContent = cat;
             }
@@ -82,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         filteredPosts = filtered;
         currentPage = 1;
-        // renderlist(selectedType, selectedCat);
+        renderlist(typebox.textContent.trim(), catbox.textContent.trim());
         renderpost(filteredPosts);
         currentposts(typebox.textContent.trim(), catbox.textContent.trim());
       }
