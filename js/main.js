@@ -28,60 +28,87 @@ document.addEventListener("DOMContentLoaded", () => {
         typelist.innerHTML = "";
         catlist.innerHTML = "";
 
-        uniquetypes.forEach((type, index) => {
+        let typesToShow = [...uniquetypes];
+
+
+        if (selectedCat && selectedCat.toLowerCase() !== "all categories") {
+          const postsForCat = posts.filter(
+            p => p.cat && p.cat.toLowerCase() === selectedCat.toLowerCase()
+          );
+          typesToShow = [...new Set(postsForCat.map(p => p.tag).filter(Boolean))];
+          typesToShow.unshift("All Types");
+        }
+
+        // Always add "All Types" option at the start
+
+
+        typesToShow.forEach(type => {
           if (type) {
             const li = document.createElement("li");
             li.textContent = type;
-            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
-            if (index === 0) {
+            li.className =
+              "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
+
+            if (
+              (!selectedType && type.toLowerCase() === "all types") ||
+              (selectedType && selectedType.toLowerCase() === type.toLowerCase())
+            ) {
               li.classList.add("selected");
               typebox.textContent = type;
             }
-            if (selectedType.toLowerCase() === type.toLowerCase()) {
-              li.classList.add("selected");
-              typebox.textContent = type;
-            }
+
             li.addEventListener("click", () => {
               typelist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
               li.classList.add("selected");
               typebox.textContent = type;
               applyfilter();
             });
+
             typelist.appendChild(li);
           }
         });
 
-        let catsToShow = uniqueCat;
+        // ✅ Categories
+        let catsToShow = [...uniqueCat];
 
-        if (selectedType && selectedType !== "all types") {
-          const postsForType = posts.filter(p => p.tag && p.tag.toLowerCase() === selectedType.toLowerCase());
+        if (selectedType && selectedType.toLowerCase() !== "all types") {
+          const postsForType = posts.filter(
+            p => p.tag && p.tag.toLowerCase() === selectedType.toLowerCase()
+          );
           catsToShow = [...new Set(postsForType.map(p => p.cat).filter(Boolean))];
-          catsToShow.unshift("All Categories"); // add option back
+          catsToShow.unshift("All Categories");
         }
 
-        catsToShow.forEach((cat, index) => {
+        // Always add "All Categories" option at the start
+
+
+        catsToShow.forEach(cat => {
           if (cat) {
             const li = document.createElement("li");
             li.textContent = cat;
-            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
-            if (index === 0) {
+            li.className =
+              "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
+
+            if (
+              (!selectedCat && cat.toLowerCase() === "all categories") ||
+              (selectedCat && selectedCat.toLowerCase() === cat.toLowerCase())
+            ) {
               li.classList.add("selected");
               catbox.textContent = cat;
             }
-            if (selectedCat.toLowerCase() === cat.toLowerCase()) {
-              li.classList.add("selected");
-              catbox.textContent = cat;
-            }
+
             li.addEventListener("click", () => {
               catlist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
               li.classList.add("selected");
               catbox.textContent = cat;
               applyfilter();
             });
+
             catlist.appendChild(li);
           }
         });
       }
+
 
       function applyfilter() {
         let filtered = posts;
