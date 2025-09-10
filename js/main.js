@@ -25,26 +25,46 @@ document.addEventListener("DOMContentLoaded", () => {
       renderpost(filteredPosts);
 
       function renderlist() {
+        typelist.innerHTML = "";
+        catlist.innerHTML = "";
 
-        uniquetypes.forEach(type => {
+        uniquetypes.forEach((type, index) => {
           if (type) {
             const li = document.createElement("li");
             li.textContent = type;
-            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
+            if (index === 0) {
+              li.classList.add("selected");
+              typebox.textContent = type;
+            }
+            li.addEventListener("click", () => {
+              typelist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+              li.classList.add("selected");
+              typebox.textContent = type;
+              applyfilter();
+            });
             typelist.appendChild(li);
           }
         });
 
-        uniqueCat.forEach(cat => {
+        uniqueCat.forEach((cat, index) => {
           if (cat) {
             const li = document.createElement("li");
             li.textContent = cat;
-            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize transition-all duration-300 ease-in-out";
+            li.className = "relative bg-white text-[#282728] text-[16px] font-normal pl-[24px] py-[14px] hover:bg-[#eb00004d] hover:text-[#eb0000] cursor-pointer capitalize";
+            if (index === 0) {
+              li.classList.add("selected");
+              catbox.textContent = cat;
+            }
+            li.addEventListener("click", () => {
+              catlist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+              li.classList.add("selected");
+              catbox.textContent = cat;
+              applyfilter();
+            });
             catlist.appendChild(li);
           }
         });
-
-        applyfilter()
       }
 
       function applyfilter() {
@@ -64,41 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPage = 1;
         // renderlist(selectedType, selectedCat);
         renderpost(filteredPosts);
-        currentposts(selectedType, selectedCat);
-      }
-
-      function typelisting() {
-        const typeItems = typelist.querySelectorAll("li");
-        if (typeItems.length > 0) {
-          typeItems[0].classList.add('selected');
-          typebox.textContent = typeItems[0].textContent;
-        }
-
-        typeItems.forEach(item => {
-          item.addEventListener('click', () => {
-            typeItems.forEach(el => el.classList.remove("selected"));
-            item.classList.add('selected');
-            typebox.textContent = item.textContent;
-            applyfilter();
-          });
-        });
-      }
-
-      function catlisting() {
-        const catitems = catlist.querySelectorAll("li");
-        if (catitems.length > 0) {
-          catitems[0].classList.add('selected');
-          catbox.textContent = catitems[0].textContent;
-        }
-
-        catitems.forEach(item => {
-          item.addEventListener('click', () => {
-            catitems.forEach(el => el.classList.remove("selected"));
-            item.classList.add('selected');
-            catbox.textContent = item.textContent;
-            applyfilter();
-          });
-        });
+        currentposts(typebox.textContent.trim(), catbox.textContent.trim());
       }
 
       function toggleclk() {
@@ -202,14 +188,14 @@ document.addEventListener("DOMContentLoaded", () => {
       function currentposts(selectedType, selectedCat) {
         currentpost.innerHTML = "";
 
-        if (selectedType && selectedType !== "all types") {
+        if (selectedType && selectedType.toLowerCase() !== "all types") {
           const typeTag = document.createElement("span");
           typeTag.className = "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
           typeTag.innerHTML = `${selectedType} <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="type">×</button>`;
           currentpost.appendChild(typeTag);
         }
 
-        if (selectedCat && selectedCat !== "all categories") {
+        if (selectedCat && selectedCat.toLowerCase() !== "all categories") {
           const catTag = document.createElement("span");
           catTag.className = "tag bg-[#2EB67D] text-[16px] font-normal pl-[12px] pr-[33px] py-[7px] mr-2 rounded-[50px] relative";
           catTag.innerHTML = `${selectedCat} <button class="remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-darkGray text-[28px]" data-filter="cat">×</button>`;
@@ -220,17 +206,21 @@ document.addEventListener("DOMContentLoaded", () => {
         clearbtns.forEach(btn => {
           btn.addEventListener('click', () => {
             if (btn.dataset.filter === "type") {
-              typebox.textContent = "All Types";
+              const firstType = typelist.querySelector("li");
 
-              const typeItems = typelist.querySelectorAll("li");
-              typeItems.forEach(el => el.classList.remove("selected"));
-              if (typeItems.length > 0) typeItems[0].classList.add("selected");
+              if (firstType) {
+                typebox.textContent = firstType.textContent;
+                typelist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+                firstType.classList.add("selected");
+              }
 
             } else if (btn.dataset.filter === "cat") {
-              catbox.textContent = "All Categories";
-              const catItems = catlist.querySelectorAll("li");
-              catItems.forEach(el => el.classList.remove("selected"));
-              if (catItems.length > 0) catItems[0].classList.add("selected");
+              const firstCat = catlist.querySelector("li");
+              if (firstCat) {
+                catbox.textContent = firstCat.textContent;
+                catlist.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+                firstCat.classList.add("selected");
+              }
             }
 
             applyfilter();
@@ -248,8 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       renderlist();
-      typelisting();
-      catlisting();
       toggleclk();
 
     })
