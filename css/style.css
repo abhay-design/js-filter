@@ -84,7 +84,13 @@
   background-position: center;
   background-size: 100%;
   transform: rotate(90deg);
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .dropdown-outer .select-wrap.active::after {
+  background: url("/images/up.svg");
+  transform: rotate(0);
+  top: 6px;
 }
 
 .insights-filter .dropdown-outer .option-wrap {
@@ -129,4 +135,12 @@
 
 .select-wrap .option-wrap.open {
   height: auto;
+}
+
+.select-wrap > span:first-of-type {
+  transition: all 0.3s ease-in-out;
+}
+
+.select-wrap.active > span:first-of-type {
+  color: #f26027;
 }
