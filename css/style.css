@@ -70,3 +70,63 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.insights-filter .dropdown-outer .select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 0;
+  width: 15px;
+  height: 12px;
+  cursor: pointer;
+  background: url("/images/arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  transform: rotate(90deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.insights-filter .dropdown-outer .option-wrap {
+  box-shadow: 0 4px 8px 0 rgba(0, 42, 59, 0.24);
+}
+
+#audienceList .checkbox-row {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+#audienceList li {
+  margin-bottom: 20px;
+}
+
+#audienceList label {
+  font-size: 0;
+}
+
+#audienceList .checkbox-wrap {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+#audienceList .text-with-num {
+  position: relative;
+  width: calc(100% - 20px);
+  padding-left: 8px;
+}
+
+#audienceList .text-with-num span {
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #002a3b;
+}
+
+.select-wrap .option-wrap.open {
+  height: auto;
+}

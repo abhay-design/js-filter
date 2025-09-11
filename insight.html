@@ -27,17 +27,22 @@
       <div class="container">
         <div class="wrap flex flex-wrap justify-between items-center">
           <div class="dropdown-outer flex flex-wrap">
-            <div class="select-wrap mr-[37px]">
-              <span class="audience text-white text-[16px] font-semibold">Audience</span>
+            <div class="select-wrap relative mr-[37px] cursor-pointer">
+              <span class="audience text-white text-[16px]  pr-[20px] font-semibold">Audience</span>
+              <div
+                class="option-wrap absolute top-[calc(100%+10px)] left-0 w-[350px] h-0 bg-white   transiton-all duration-300 ease-in-out z-[10] rounded-[8px] overflow-hidden">
+                <ul id="audienceList" class="max-h-[422px] pt-[24px] pr-[26px] pb-[31px] pl-[16px] overflow-y-scroll">
+                </ul>
+              </div>
             </div>
-            <div class="select-wrap mr-[37px]">
-              <span class="author-category text-white text-[16px] font-semibold">Author</span>
+            <div class="select-wrap relative mr-[37px] cursor-pointer">
+              <span class="author-category text-white text-[16px]  pr-[20px] font-semibold">Author</span>
             </div>
-            <div class="select-wrap mr-[37px]">
-              <span class="content-type text-white text-[16px] font-semibold">Content Type</span>
+            <div class="select-wrap relative mr-[37px] cursor-pointer">
+              <span class="content-type text-white text-[16px]  pr-[20px] font-semibold">Content Type</span>
             </div>
-            <div class="select-wrap mr-[37px]">
-              <span class="product text-white text-[16px] font-semibold">Product</span>
+            <div class="select-wrap relative mr-[37px] cursor-pointer">
+              <span class="product text-white text-[16px]  pr-[20px] font-semibold">Product</span>
             </div>
           </div>
           <div class="search-outer max-w-[392px] w-full relative rounded-[4px] overflow-hidden">
