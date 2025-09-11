@@ -36,8 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
           item.field_product ? item.field_product.split(",") : []
         );
 
+        const contenttypes = [...new Set(data.map(item => item["field_content_type"]))];
+        const authortypes = [...new Set(
+          data
+            .map(item => {
+              if (!item.field_author) return null;
+              const temp = document.createElement("div");
+              temp.innerHTML = item.field_author;
+              let text = temp.textContent.trim();
+              return text.split(",")[0].trim();
+            })
+            .filter(Boolean)
+        )];
+
+
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
+
 
 
         const buildList = (listContainer, items) => {
@@ -80,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         buildList(document.querySelector("#audienceList"), uniqueAudiences);
         buildList(document.querySelector("#productList"), uniqueProducts);
+        buildList(document.querySelector("#content-typeList"), contenttypes);
+        buildList(document.querySelector("#authorList"), authortypes);
       }
 
       handleClick()
