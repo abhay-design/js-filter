@@ -103,6 +103,14 @@ img {
   box-shadow: 0 4px 8px 0 rgba(0, 42, 59, 0.24);
 }
 
+.insights-filter .col-three img {
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .col-three:hover img {
+  transform: scale(1.1);
+}
+
 .option-wrap .checkbox-row {
   cursor: pointer;
   position: relative;

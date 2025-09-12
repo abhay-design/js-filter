@@ -153,11 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
           let readTime = post.field_zip_code ? `${post.field_zip_code.trim()} MIN` : "";
 
           return `
-          <div class="col-three relative w-[calc(33.33%-24px)] mx-[12px] mb-[50px] pt-[120px] min-h-[480px]">
-            <a href="${post.view_node}" class="emptylink">.</a>
-            <div class="card-wrap pt-[100px] relative w-full h-full px-[24px] pb-[78px] rounded-[8px] bg-white transition-all duration-300 ease-in-out">
-              <div class="img-box absolute left-[50%] top-[-40px] -translate-x-1/2 -translate-y-1/2 transform max-w-[344px] w-full h-[220px] mb-[31px] rounded-[8px] overflow-hidden z-[1] transition-all duration-300 ease-in-out">
-                <img src="${imgUrl}" alt="${post.title} class="w-full h-full object-cover">
+          <div class="col-three relative w-[calc(33.33%-24px)] mx-[12px] mb-[50px] pt-[150px] min-h-[480px] hover:shadow-lg transition-all duration-300 ease-in-out">
+            <a href="${post.view_node}" class="emptylink z-[5]">.</a>
+            <div class="card-wrap pt-[100px] relative w-full h-full px-[24px] pb-[78px] rounded-[8px] bg-white">
+              <div class="img-box absolute left-[50%] top-[-40px] -translate-x-1/2 -translate-y-1/2 transform max-w-[400px] w-full h-[220px] mb-[31px] rounded-[8px] overflow-hidden z-[1] transition-all duration-300 ease-in-out">
+                <img src="${imgUrl}" alt="${post.title} class="w-full h-full object-cover transition-all duration-300 ease-in-out">
               </div>
               <div class="text-box">
                 <div class="caption">
