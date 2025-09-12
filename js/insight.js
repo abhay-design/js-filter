@@ -11,7 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const handleClick = () => {
         outers.forEach(el => {
-          el.addEventListener('click', function () {
+          el.addEventListener('click', function (e) {
+            if (e.target.closest('.option-wrap')) {
+              return;
+            }
+
             const option = this.querySelector('.option-wrap');
             const wasActive = this.classList.contains('active');
 

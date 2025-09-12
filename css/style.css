@@ -159,6 +159,36 @@ img {
   color: #f26027;
 }
 
+.select-wrap .checkbox-wrap input {
+  display: none;
+}
+
+.select-wrap .checkbox-wrap label {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0;
+  vertical-align: top;
+  position: relative;
+  z-index: 5;
+}
+
+.select-wrap .checkbox-wrap label::after {
+  content: "";
+  position: relative;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #98a4af;
+  box-shadow: none;
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 2px;
+  top: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
 .date::before {
   content: "|";
   position: absolute;
