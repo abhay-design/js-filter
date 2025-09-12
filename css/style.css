@@ -23,6 +23,12 @@
   z-index: 1;
 }
 
+img {
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+}
+
 .resource .selectbox .box {
   background-color: rgba(211, 215, 215, 0.3);
 }
@@ -143,4 +149,26 @@
 
 .select-wrap.active > span:first-of-type {
   color: #f26027;
+}
+
+.date::before {
+  content: "|";
+  position: absolute;
+  font-size: 16px;
+  color: #009dd1;
+  right: -13px;
+  top: -3px;
+}
+
+.link-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  right: -17px;
+  height: 16px;
+  width: 16px;
+  top: 60%;
+  transform: translateY(-50%);
+  background-image: url("/images/link-arrow.svg");
+  transition: all 0.3s ease-in-out;
 }
