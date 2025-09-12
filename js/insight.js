@@ -18,6 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const option = this.querySelector('.option-wrap');
             const wasActive = this.classList.contains('active');
+            const checkedrows = el.querySelectorAll(".select-wrap .option-wrap .checkbox-row")
+            if (checkedrows) {
+              checkedrows.forEach(row => {
+                row.addEventListener('click', function (e) {
+                  e.stopPropagation();
+                  var inpt = this.querySelector("input")
+                  if (inpt) {
+                    inpt.checked = !inpt.checked; // ✅ toggle checked
+                  }
+                })
+              })
+            }
+
 
             outers.forEach(o => {
               o.classList.remove('active');
@@ -114,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // paginationContainer.innerHTML = "";
           return;
         }
-        console.log(posts);
+        // console.log(posts);
 
 
         postcontainer.innerHTML = posts.map(post => {

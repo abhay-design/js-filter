@@ -116,6 +116,8 @@ img {
   position: relative;
   width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .option-wrap li {
@@ -172,6 +174,25 @@ img {
   z-index: 5;
 }
 
+.select-wrap .checkbox-wrap input:checked + label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 6px;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 10px;
+  background: url("/images/check_tick.svg") no-repeat center;
+  background-size: 100%;
+}
+
+.select-wrap .checkbox-wrap input:checked + label::after {
+  background-color: #005677;
+  border-color: #005677;
+}
+
 .select-wrap .checkbox-wrap label::after {
   content: "";
   position: relative;
@@ -185,7 +206,7 @@ img {
   vertical-align: middle;
   cursor: pointer;
   border-radius: 2px;
-  top: 6px;
+  top: 2px;
   transition: all 0.3s ease-in-out;
 }
 
