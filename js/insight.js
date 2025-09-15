@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const posts = data;
 
 
-
+      // clicking funtion for the lists
       const handleClick = () => {
         outers.forEach(el => {
           el.addEventListener('click', function (e) {
@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   if (inpt) {
                     inpt.checked = !inpt.checked; // ✅ toggle checked
                   }
+                  applyFilter()
                 })
               })
             }
-
 
             outers.forEach(o => {
               o.classList.remove('active');
@@ -42,10 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
               this.classList.add('active');
               if (option) option.classList.add('open');
             }
+
           })
         });
       };
 
+      // added value from date into the list
       const updateList = () => {
 
         const makeUniqueList = (arr) => [...new Set(arr.map(item => item.trim()).filter(Boolean))];
@@ -76,13 +78,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
         const uniqueContenttypes = makeUniqueList(contenttypes)
+        const normalize = str => str.toLowerCase().trim()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9\-_]/g, "");
 
 
 
-        const buildList = (listContainer, items) => {
+        const buildList = (listContainer, items, key) => {
           listContainer.innerHTML = "";
           items.forEach(type => {
-            const safeId = type.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "");
+            const safeId = normalize(type);
+
+            let countNum = 0;
+            data.forEach(post => {
+              let values = [];
+              if (key === "field_audience" || key === "field_product") {
+                values = (post[key] || "").split(",").map(v => normalize(v));
+              } else if (key === "field_content_type") {
+                values = [normalize(post[key] || "")];
+              } else if (key === "field_author") {
+                const temp = document.createElement("div");
+                temp.innerHTML = post.field_author || "";
+                const authorText = temp.textContent.trim();
+                values = [normalize(authorText.split(",")[0])];
+              }
+              if (values.includes(safeId)) {
+                countNum++;
+              }
+            });
 
             const li = document.createElement("li");
             const row = document.createElement("div");
@@ -106,7 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
             textwithnum.appendChild(count)
             count.classList.add("categories-count")
             span.textContent = type;
-            count.textContent = `(${type.length})`
+            count.textContent = `(${countNum})`;
+
+
 
 
 
@@ -123,12 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         };
 
-        buildList(document.querySelector("#audienceList"), uniqueAudiences);
-        buildList(document.querySelector("#productList"), uniqueProducts);
-        buildList(document.querySelector("#content-typeList"), uniqueContenttypes);
-        buildList(document.querySelector("#authorList"), authortypes);
+
+        buildList(document.querySelector("#audienceList"), uniqueAudiences, "field_audience");
+        buildList(document.querySelector("#productList"), uniqueProducts, "field_product");
+        buildList(document.querySelector("#content-typeList"), uniqueContenttypes, "field_content_type");
+        buildList(document.querySelector("#authorList"), authortypes, "field_author");
       }
 
+      // print all the cards
       const renderPost = (posts) => {
         if (!posts || posts.length === 0) {
           postcontainer.innerHTML = `<p class="text-center text-gray-600">No posts found</p>`;
@@ -200,6 +227,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join("");
 
       }
+
+      const applyFilter = () => {
+        // Collect checked filters grouped by type
+        const audienceChecked = Array.from(document.querySelectorAll("#audienceList input:checked")).map(i => i.id);
+        const productChecked = Array.from(document.querySelectorAll("#productList input:checked")).map(i => i.id);
+        const contentChecked = Array.from(document.querySelectorAll("#content-typeList input:checked")).map(i => i.id);
+        const authorChecked = Array.from(document.querySelectorAll("#authorList input:checked")).map(i => i.id);
+
+        let filtered = posts.filter(post => {
+          let keep = true;
+
+          // Audience filter (OR logic)
+          if (audienceChecked.length) {
+            keep = audienceChecked.some(id =>
+              (post.field_audience || "").toLowerCase().includes(id.replace(/-/g, " "))
+            );
+          }
+
+          // Product filter (AND with audience if both chosen)
+          if (keep && productChecked.length) {
+            keep = productChecked.some(id =>
+              (post.field_product || "").toLowerCase().includes(id.replace(/-/g, " "))
+            );
+          }
+
+          // Content type filter
+          if (keep && contentChecked.length) {
+            keep = contentChecked.some(id =>
+              (post.field_content_type || "").toLowerCase().includes(id.replace(/-/g, " "))
+            );
+          }
+
+          // Author filter
+          if (keep && authorChecked.length) {
+            // note: field_author contains HTML, so strip tags
+            const temp = document.createElement("div");
+            temp.innerHTML = post.field_author || "";
+            const authorText = temp.textContent.trim().toLowerCase();
+
+            keep = authorChecked.some(id => authorText.includes(id.replace(/-/g, " ")));
+          }
+
+          return keep;
+        });
+        console.log(filtered);
+
+
+        renderPost(filtered.length ? filtered : posts);
+      };
+
+
 
       handleClick()
       updateList()
