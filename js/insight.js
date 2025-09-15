@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let currentPage = 1;
       const postsPerPage = 21;
-      let filteredPosts = [];
-      filteredPosts = posts;
+      // let filteredPosts = [];
+      let filteredPosts = posts;
 
+      // helper normalize fn
+      const normalize = str => str.toLowerCase().trim().replace(/\s+/g, "-");
 
       // clicking funtion for the lists
       const handleClick = () => {
@@ -83,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
         const uniqueContenttypes = makeUniqueList(contenttypes)
-        const normalize = str => str.toLowerCase().trim()
-          .replace(/\s+/g, "-")
-          .replace(/[^a-z0-9\-_]/g, "");
+        // const normalize = str => str.toLowerCase().trim()
+        //   .replace(/\s+/g, "-")
+        //   .replace(/[^a-z0-9\-_]/g, "");
 
 
 
@@ -137,9 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             count.textContent = `(${countNum})`;
 
 
-
-
-
             li.appendChild(row);
             row.appendChild(wrap);
             wrap.appendChild(input);
@@ -163,8 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // print all the cards
       const renderPost = (posts) => {
         filteredPosts = posts;
+        const totalPosts = posts.length;
 
-        if (!posts || posts.length === 0) {
+        if (!totalPosts) {
           postcontainer.innerHTML = `<p class="text-center text-gray-600">No posts found</p>`;
           paginationContainer.innerHTML = "";
           return;
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>`;
         }).join("");
-        renderPagination(posts.length);
+        renderPagination(totalPosts);
       }
 
       // for filter posts
@@ -252,40 +252,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Audience filter (OR logic)
           if (audienceChecked.length) {
-            keep = audienceChecked.some(id =>
-              (post.field_audience || "").toLowerCase().includes(id.replace(/-/g, " "))
-            );
+            const values = (post.field_audience || "").split(",").map(v => normalize(v));
+            keep = audienceChecked.some(id => values.includes(id));
           }
+
 
           // Product filter (AND with audience if both chosen)
           if (keep && productChecked.length) {
-            keep = productChecked.some(id =>
-              (post.field_product || "").toLowerCase().includes(id.replace(/-/g, " "))
-            );
+            const values = (post.field_product || "").split(",").map(v => normalize(v));
+            keep = productChecked.some(id => values.includes(id));
           }
 
           // Content type filter
           if (keep && contentChecked.length) {
-            keep = contentChecked.some(id =>
-              (post.field_content_type || "").toLowerCase().includes(id.replace(/-/g, " "))
-            );
+            const value = normalize(post.field_content_type || "");
+            keep = contentChecked.includes(value);
           }
 
           // Author filter
           if (keep && authorChecked.length) {
-            // note: field_author contains HTML, so strip tags
             const temp = document.createElement("div");
             temp.innerHTML = post.field_author || "";
-            const authorText = temp.textContent.trim().toLowerCase();
-
-            keep = authorChecked.some(id => authorText.includes(id.replace(/-/g, " ")));
+            const authorText = temp.textContent.trim().split(",")[0];
+            const value = normalize(authorText);
+            keep = authorChecked.includes(value);
           }
 
           return keep;
         });
         console.log(filtered);
 
-
+        currentPage = 1;
         renderPost(filtered);
       };
 
