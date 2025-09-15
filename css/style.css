@@ -141,6 +141,10 @@ img {
   padding-left: 8px;
 }
 
+.option-wrap .text-with-num .categories-count {
+  padding-left: 5px;
+}
+
 .option-wrap .text-with-num span {
   padding: 0;
   font-size: 18px;

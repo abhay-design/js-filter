@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
 
         const contenttypes = [...new Set(data.map(item => item["field_content_type"]))];
+
         const authortypes = [...new Set(
           data
             .map(item => {
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
+        const uniqueContenttypes = makeUniqueList(contenttypes)
 
 
 
@@ -87,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const wrap = document.createElement("div");
             const textwithnum = document.createElement("div");
             const span = document.createElement("span");
+            const count = document.createElement("span")
 
             const input = document.createElement("input");
             input.type = "checkbox";
@@ -100,7 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
             wrap.classList.add("checkbox-wrap");
             textwithnum.classList.add("text-with-num");
             textwithnum.appendChild(span)
+            textwithnum.appendChild(count)
+            count.classList.add("categories-count")
             span.textContent = type;
+            count.textContent = `(${type.length})`
+
+
 
             li.appendChild(row);
             row.appendChild(wrap);
@@ -117,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         buildList(document.querySelector("#audienceList"), uniqueAudiences);
         buildList(document.querySelector("#productList"), uniqueProducts);
-        buildList(document.querySelector("#content-typeList"), contenttypes);
+        buildList(document.querySelector("#content-typeList"), uniqueContenttypes);
         buildList(document.querySelector("#authorList"), authortypes);
       }
 
