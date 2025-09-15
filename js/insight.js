@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const postcontainer = document.querySelector('.insights-filter .card-outer .wrapper');
       const paginationContainer = document.querySelector(".ajax-pagination");
       const posts = data;
+      const search = document.querySelector(".search-outer input")
+
 
       let currentPage = 1;
       const postsPerPage = 21;
@@ -286,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPost(filtered);
       };
 
+      // for pagination code
       const renderPagination = (totalPosts) => {
         paginationContainer.innerHTML = "";
         const totalPages = Math.ceil(totalPosts / postsPerPage);
@@ -353,8 +356,37 @@ document.addEventListener('DOMContentLoaded', () => {
         );
       };
 
+      // for search function
+      const handlesearch = () => {
+        const query = search.value.toLowerCase().trim();
+
+        let filtered = posts.filter(post => {
+          let title = post.title ? post.title.toLowerCase() : "";
+          let author = "";
+          if (post.field_author) {
+            const temp = document.createElement("div");
+            temp.innerHTML = post.field_author;
+            author = temp.textContent.toLowerCase();
+          } else if (post.guest_author) {
+            author = post.guest_author.toLowerCase();
+          }
+
+          let contentType = post.field_content_type ? post.field_content_type.toLowerCase() : "";
+
+          return (
+            title.includes(query) ||
+            author.includes(query) ||
+            contentType.includes(query)
+          );
+        });
+
+        currentPage = 1;
+        renderPost(filtered);
+      };
+
       handleClick()
       updateList()
       renderPost(posts)
+      search.addEventListener("input", handlesearch);
     })
 })
