@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const btn = document.createElement("button");
           btn.textContent = label;
           btn.className = `px-4 py-2 rounded-md border mx-1 ${active
-            ? "bg-[#eb0000] text-white"
+            ? "bg-[#005677] text-white"
             : disabled
               ? "bg-gray-200 text-gray-500 cursor-not-allowed"
               : "bg-white text-black"
@@ -352,9 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
           createBtn("Next", currentPage + 1, currentPage === totalPages)
         );
       };
-
-
-
 
       handleClick()
       updateList()
