@@ -291,44 +291,68 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalPages = Math.ceil(totalPosts / postsPerPage);
         if (totalPages <= 1) return;
 
-        // Prev
-        const prevBtn = document.createElement("button");
-        prevBtn.textContent = "Prev";
-        prevBtn.className = `px-4 py-2 rounded-md border ${currentPage === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
-        prevBtn.disabled = currentPage === 1;
-        prevBtn.addEventListener("click", () => {
-          if (currentPage > 1) {
-            currentPage--;
-            renderPost(filteredPosts);
-          }
-        });
-        paginationContainer.appendChild(prevBtn);
-
-        // Numbers
-        for (let i = 1; i <= totalPages; i++) {
+        // Helper to create button
+        const createBtn = (label, page, disabled = false, active = false) => {
           const btn = document.createElement("button");
-          btn.textContent = i;
-          btn.className = `px-4 py-2 rounded-md border ${i === currentPage ? "bg-[#eb0000] text-white" : "bg-white text-black"}`;
-          btn.addEventListener("click", () => {
-            currentPage = i;
-            renderPost(filteredPosts);
-          });
-          paginationContainer.appendChild(btn);
+          btn.textContent = label;
+          btn.className = `px-4 py-2 rounded-md border mx-1 ${active
+            ? "bg-[#eb0000] text-white"
+            : disabled
+              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+              : "bg-white text-black"
+            }`;
+          btn.disabled = disabled;
+          if (!disabled && !active) {
+            btn.addEventListener("click", () => {
+              currentPage = page;
+              renderPost(filteredPosts);
+            });
+          }
+          return btn;
+        };
+
+        // Prev button
+        paginationContainer.appendChild(
+          createBtn("Prev", currentPage - 1, currentPage === 1)
+        );
+
+        // Page numbers with ellipsis
+        const maxVisible = 1; // how many numbers to show around current page
+        const pages = [];
+
+        if (totalPages <= maxVisible + 2) {
+          // show all if few pages
+          for (let i = 1; i <= totalPages; i++) pages.push(i);
+        } else {
+          pages.push(1); // always show first page
+
+          let start = Math.max(2, currentPage - 2);
+          let end = Math.min(totalPages - 1, currentPage + 2);
+
+          if (start > 2) pages.push("...");
+          for (let i = start; i <= end; i++) pages.push(i);
+          if (end < totalPages - 1) pages.push("...");
+
+          pages.push(totalPages); // always show last page
         }
 
-        // Next
-        const nextBtn = document.createElement("button");
-        nextBtn.textContent = "Next";
-        nextBtn.className = `px-4 py-2 rounded-md border ${currentPage === totalPages ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
-        nextBtn.disabled = currentPage === totalPages;
-        nextBtn.addEventListener("click", () => {
-          if (currentPage < totalPages) {
-            currentPage++;
-            renderPost(filteredPosts);
+        pages.forEach((p) => {
+          if (p === "...") {
+            const span = document.createElement("span");
+            span.textContent = "...";
+            span.className = "px-3";
+            paginationContainer.appendChild(span);
+          } else {
+            paginationContainer.appendChild(createBtn(p, p, false, p === currentPage));
           }
         });
-        paginationContainer.appendChild(nextBtn);
+
+        // Next button
+        paginationContainer.appendChild(
+          createBtn("Next", currentPage + 1, currentPage === totalPages)
+        );
       };
+
 
 
 
