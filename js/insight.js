@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const option = this.querySelector('.option-wrap');
             const wasActive = this.classList.contains('active');
             const checkedrows = el.querySelectorAll(".select-wrap .option-wrap .checkbox-row")
+
             if (checkedrows) {
               checkedrows.forEach(row => {
                 row.addEventListener('click', function (e) {
@@ -51,8 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
               this.classList.add('active');
               if (option) option.classList.add('open');
             }
+          });
+        });
 
-          })
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('.select-wrap')) {
+            outers.forEach(o => {
+              o.classList.remove('active');
+              const opt = o.querySelector('.option-wrap');
+              if (opt) opt.classList.remove('open');
+            });
+          }
         });
       };
 
