@@ -4,8 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const outers = document.querySelectorAll('.dropdown-outer .select-wrap');
       const postcontainer = document.querySelector('.insights-filter .card-outer .wrapper');
-      // const paginationContainer = document.querySelector(".ajax-pagination");
+      const paginationContainer = document.querySelector(".ajax-pagination");
       const posts = data;
+
+      let currentPage = 1;
+      const postsPerPage = 21;
+      let filteredPosts = [];
+      filteredPosts = posts;
 
 
       // clicking funtion for the lists
@@ -157,15 +162,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // print all the cards
       const renderPost = (posts) => {
+        filteredPosts = posts;
+
         if (!posts || posts.length === 0) {
           postcontainer.innerHTML = `<p class="text-center text-gray-600">No posts found</p>`;
-          // paginationContainer.innerHTML = "";
+          paginationContainer.innerHTML = "";
           return;
         }
         // console.log(posts);
 
+        const start = (currentPage - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const visiblePosts = posts.slice(start, end);
 
-        postcontainer.innerHTML = posts.map(post => {
+
+        postcontainer.innerHTML = visiblePosts.map(post => {
           // extract image URL
           let imgUrl = "";
           if (post.field_dam_image) {
@@ -225,9 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>`;
         }).join("");
-
+        renderPagination(posts.length);
       }
 
+      // for filter posts
       const applyFilter = () => {
         // Collect checked filters grouped by type
         const audienceChecked = Array.from(document.querySelectorAll("#audienceList input:checked")).map(i => i.id);
@@ -274,7 +286,51 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(filtered);
 
 
-        renderPost(filtered.length ? filtered : posts);
+        renderPost(filtered);
+      };
+
+      const renderPagination = (totalPosts) => {
+        paginationContainer.innerHTML = "";
+        const totalPages = Math.ceil(totalPosts / postsPerPage);
+        if (totalPages <= 1) return;
+
+        // Prev
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "Prev";
+        prevBtn.className = `px-4 py-2 rounded-md border ${currentPage === 1 ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderPost(filteredPosts);
+          }
+        });
+        paginationContainer.appendChild(prevBtn);
+
+        // Numbers
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.className = `px-4 py-2 rounded-md border ${i === currentPage ? "bg-[#eb0000] text-white" : "bg-white text-black"}`;
+          btn.addEventListener("click", () => {
+            currentPage = i;
+            renderPost(filteredPosts);
+          });
+          paginationContainer.appendChild(btn);
+        }
+
+        // Next
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Next";
+        nextBtn.className = `px-4 py-2 rounded-md border ${currentPage === totalPages ? "bg-gray-200 text-gray-500 cursor-not-allowed" : "bg-white text-black"}`;
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.addEventListener("click", () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderPost(filteredPosts);
+          }
+        });
+        paginationContainer.appendChild(nextBtn);
       };
 
 
