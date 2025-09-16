@@ -214,6 +214,22 @@ img {
   transition: all 0.3s ease-in-out;
 }
 
+.select-wrap .clear-selection {
+  color: #005677;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 12px 0;
+  text-decoration: underline;
+  display: inline-block;
+  padding-left: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.select-wrap .clear-selection:hover {
+  color: #f26027;
+}
+
 .date::before {
   content: "|";
   position: absolute;

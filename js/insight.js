@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const paginationContainer = document.querySelector(".ajax-pagination");
       const posts = data;
       const search = document.querySelector(".search-outer input")
+      const clerselection = document.querySelectorAll(".insights-filter .select-wrap .clear-selection")
 
 
       let currentPage = 1;
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       };
 
-      // added value from date into the list
+      // added value from data into the list
       const updateList = () => {
 
         const makeUniqueList = (arr) => [...new Set(arr.map(item => item.trim()).filter(Boolean))];
@@ -394,9 +395,27 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPost(filtered);
       };
 
+      const Clearslection = () => {
+        clerselection.forEach(btn => {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+
+            const parent = this.closest(".select-wrap");
+
+            const inputs = parent.querySelectorAll("input[type='checkbox']");
+            inputs.forEach(input => (input.checked = false));
+
+            applyFilter();
+          });
+        });
+      }
+
+
+
       handleClick()
       updateList()
       renderPost(posts)
+      Clearslection()
       search.addEventListener("input", handlesearch);
     })
 })
