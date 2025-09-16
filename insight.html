@@ -31,7 +31,7 @@
               <span class="audience text-white text-[16px]  pr-[20px] font-semibold">Audience</span>
               <div
                 class="option-wrap absolute top-[calc(100%+10px)] left-0 w-[350px] h-0 bg-white   transiton-all duration-300 ease-in-out z-[10] rounded-[8px] overflow-hidden">
-                <ul id="audienceList" class="max-h-[422px] pt-[24px] pr-[26px] pb-[31px] pl-[16px] overflow-y-scroll">
+                <ul id="audienceList" class="max-h-[422px] pt-[24px] pr-[26px]  pl-[16px] overflow-y-scroll">
                 </ul>
                 <span class="clear-selection">Clear selection</span>
               </div>
@@ -40,7 +40,7 @@
               <span class="author-category text-white text-[16px]  pr-[20px] font-semibold">Author</span>
               <div
                 class="option-wrap absolute top-[calc(100%+10px)] left-0 w-[350px] h-0 bg-white   transiton-all duration-300 ease-in-out z-[10] rounded-[8px] overflow-hidden">
-                <ul id="authorList" class="max-h-[422px] pt-[24px] pr-[26px] pb-[31px] pl-[16px] overflow-y-scroll">
+                <ul id="authorList" class="max-h-[422px] pt-[24px] pr-[26px]  pl-[16px] overflow-y-scroll">
                 </ul>
                 <span class="clear-selection">Clear selection</span>
               </div>
@@ -49,8 +49,7 @@
               <span class="content-type text-white text-[16px]  pr-[20px] font-semibold">Content Type</span>
               <div
                 class="option-wrap absolute top-[calc(100%+10px)] left-0 w-[350px] h-0 bg-white   transiton-all duration-300 ease-in-out z-[10] rounded-[8px] overflow-hidden">
-                <ul id="content-typeList"
-                  class="max-h-[422px] pt-[24px] pr-[26px] pb-[31px] pl-[16px] overflow-y-scroll">
+                <ul id="content-typeList" class="max-h-[422px] pt-[24px] pr-[26px]  pl-[16px] overflow-y-scroll">
                 </ul>
                 <span class="clear-selection">Clear selection</span>
               </div>
@@ -59,15 +58,24 @@
               <span class="product text-white text-[16px]  pr-[20px] font-semibold">Product</span>
               <div
                 class="option-wrap absolute top-[calc(100%+10px)] left-0 w-[350px] h-0 bg-white   transiton-all duration-300 ease-in-out z-[10] rounded-[8px] overflow-hidden">
-                <ul id="productList" class="max-h-[422px] pt-[24px] pr-[26px] pb-[31px] pl-[16px] overflow-y-scroll">
+                <ul id="productList" class="max-h-[422px] pt-[24px] pr-[26px]  pl-[16px] overflow-y-scroll">
                 </ul>
                 <span class="clear-selection">Clear selection</span>
               </div>
             </div>
           </div>
           <div class="search-outer max-w-[392px] w-full relative rounded-[4px] overflow-hidden">
-            <input type="search" placeholder="Search insights"
+            <input type="search" placeholder="Search insights" id="sure-search"
               class="w-full py-[8px] outline-none pr-[63px] pl-[15px] rounded-[4px] border border-[#415363] text-[18px] text-black bg-white h-[40px]">
+            <label for="sure-search" class="hidden">.</label>
+            <div id="search-submit"
+              class="absolute w-[32px] h-[32px] top-[50%] translate-y-[-50%] right-[4px] p-[5px] rounded-[4px] overflow-hidden bg-[#98a4af] transition-all duration-300 ease-in-out">
+              <svg width="32" height="32" class="w-full h-full" viewBox="0 0 32 32" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="m21 21 5 5m-2.5-11.25a8.75 8.75 0 1 1-17.5 0 8.75 8.75 0 0 1 17.5 0z" stroke="#415363"
+                  stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
