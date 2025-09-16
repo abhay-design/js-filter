@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let currentPage = 1;
       const postsPerPage = 21;
       // let filteredPosts = [];
+      let filteredByFilters = posts;
       let filteredPosts = posts;
 
       // helper normalize fn
@@ -297,6 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentPage = 1;
         renderPost(filtered);
+        filteredByFilters = filtered;
+        applySearch();
       };
 
       // for pagination code
@@ -368,10 +371,10 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // for search function
-      const handlesearch = () => {
+      const applySearch = () => {
         const query = search.value.toLowerCase().trim();
 
-        let filtered = posts.filter(post => {
+        let filtered = filteredByFilters.filter(post => {
           let title = post.title ? post.title.toLowerCase() : "";
           let author = "";
           if (post.field_author) {
@@ -392,9 +395,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         currentPage = 1;
-        renderPost(filtered);
+        filteredPosts = filtered;
+        renderPost(filteredPosts);
       };
 
+      // for clearing list
       const Clearslection = () => {
         clerselection.forEach(btn => {
           btn.addEventListener("click", function (e) {
@@ -416,6 +421,6 @@ document.addEventListener('DOMContentLoaded', () => {
       updateList()
       renderPost(posts)
       Clearslection()
-      search.addEventListener("input", handlesearch);
+      search.addEventListener("input", applySearch);
     })
 })
