@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const clerselection = document.querySelectorAll(".insights-filter .select-wrap .clear-selection")
       const selectedtag = document.querySelector(".insights-filter .selected-tags")
       const insightfilter = document.querySelector(".insights-filter");
+      const btnwithtext = document.querySelector(".insights-filter .btn-with-text")
+
 
 
 
@@ -277,8 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         if (allChecked.length > 0) {
-
           selectedtag.innerHTML = "";
+          btnwithtext.innerHTML = "";
 
           allChecked.forEach(val => {
             const selectval = document.createElement("div");
@@ -319,6 +321,22 @@ document.addEventListener('DOMContentLoaded', () => {
             selectval.appendChild(removeBtn);
             selectedtag.appendChild(selectval);
           });
+
+          const clearall = document.createElement("span");
+          clearall.classList.add("clear-selection");
+          clearall.textContent = "Clear selection";
+
+          clearall.addEventListener("click", () => {
+            // Uncheck all checked inputs
+            document.querySelectorAll(".checkbox-row input:checked").forEach(cb => {
+              cb.checked = false;
+            });
+            selectedtag.innerHTML = "";
+            btnwithtext.innerHTML = "";
+            applyFilter();
+          });
+
+          btnwithtext.appendChild(clearall);
         }
 
 

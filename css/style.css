@@ -132,6 +132,16 @@ img {
   padding-left: 5px;
 }
 
+.insights-filter .btn-with-text .clear-selection {
+  color: #005677;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: underline;
+  margin: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
 .option-wrap .checkbox-row {
   cursor: pointer;
   position: relative;
