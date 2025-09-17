@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const posts = data;
       const search = document.querySelector(".search-outer input")
       const clerselection = document.querySelectorAll(".insights-filter .select-wrap .clear-selection")
+      const selectedtag = document.querySelector(".insights-filter .selected-tags")
+      let selectedArr = [];
+
 
 
       let currentPage = 1;
@@ -138,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const input = document.createElement("input");
             input.type = "checkbox";
             input.id = safeId;
+            input.setAttribute("data-count", countNum);
 
             const label = document.createElement("label");
             label.htmlFor = safeId;
@@ -260,6 +264,63 @@ document.addEventListener('DOMContentLoaded', () => {
         const productChecked = Array.from(document.querySelectorAll("#productList input:checked")).map(i => i.id);
         const contentChecked = Array.from(document.querySelectorAll("#content-typeList input:checked")).map(i => i.id);
         const authorChecked = Array.from(document.querySelectorAll("#authorList input:checked")).map(i => i.id);
+
+        let allChecked = [
+          ...new Set([
+            ...audienceChecked,
+            ...productChecked,
+            ...contentChecked,
+            ...authorChecked
+          ])
+        ];
+
+
+        if (allChecked.length > 0) {
+
+          selectedtag.innerHTML = "";
+
+          allChecked.forEach(val => {
+            const selectval = document.createElement("div");
+            const typetag = document.createElement("span");
+            const num = document.createElement("span");
+            const removeBtn = document.createElement("button");
+
+            selectval.classList.add("selected-val");
+            typetag.classList.add("val");
+            num.classList.add("num");
+            removeBtn.className = "remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-[#005677] text-darkGray text-[28px]";
+            removeBtn.textContent = "×";
+
+            // show the value text
+            typetag.textContent = val;
+
+            const inputEl = document.getElementById(val);
+            if (inputEl) {
+              const label = inputEl.nextElementSibling?.textContent || val;
+              typetag.textContent = label;
+              num.textContent = `(${inputEl.getAttribute("data-count") || 0})`;
+            } else {
+              typetag.textContent = val;
+              num.textContent = "";
+            }
+
+            removeBtn.addEventListener("click", () => {
+              if (inputEl) {
+                inputEl.checked = false;
+              }
+              selectval.remove();
+              applyFilter();
+            });
+
+
+            selectval.appendChild(typetag);
+            selectval.appendChild(num);
+            selectval.appendChild(removeBtn);
+            selectedtag.appendChild(selectval);
+          });
+        }
+
+
 
         let filtered = posts.filter(post => {
           let keep = true;

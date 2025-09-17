@@ -111,6 +111,27 @@ img {
   transform: scale(1.1);
 }
 
+.insights-filter .layout-wrap .selected-val {
+  display: inline-block;
+  position: relative;
+  margin: 0 6px 6px 0;
+  padding: 8px 35px 8px 12px;
+  border: 1px solid #98a4af;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.insights-filter .selected-val span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #005677;
+  display: inline-block;
+}
+
+.insights-filter .selected-val .num {
+  padding-left: 5px;
+}
+
 .option-wrap .checkbox-row {
   cursor: pointer;
   position: relative;
