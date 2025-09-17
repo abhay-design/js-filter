@@ -313,6 +313,10 @@ document.addEventListener('DOMContentLoaded', () => {
               }
               selectval.remove();
               applyFilter();
+
+              if (document.querySelectorAll(".selected-val").length === 0) {
+                btnwithtext.innerHTML = "";
+              }
             });
 
 
