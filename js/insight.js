@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectval.classList.add("selected-val");
             typetag.classList.add("val");
             num.classList.add("num");
-            removeBtn.className = "remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-[#005677] text-darkGray text-[28px]";
+            removeBtn.className = "remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-[#005677] text-darkGray text-[28px] transition-all duration-300 ease-in-out";
             removeBtn.textContent = "×";
 
             // show the value text

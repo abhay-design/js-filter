@@ -126,10 +126,19 @@ img {
   font-weight: 600;
   color: #005677;
   display: inline-block;
+  transition: all 0.3s ease-in-out;
 }
 
 .insights-filter .selected-val .num {
   padding-left: 5px;
+}
+
+.insights-filter .selected-val:hover span {
+  color: #f26027;
+}
+
+.insights-filter .selected-val:hover button {
+  color: #f26027;
 }
 
 .insights-filter .btn-with-text .clear-selection {
@@ -140,6 +149,10 @@ img {
   margin: 0 24px;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
+}
+
+.insights-filter .btn-with-text .clear-selection:hover {
+  color: #f26027;
 }
 
 .option-wrap .checkbox-row {
