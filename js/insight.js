@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const search = document.querySelector(".search-outer input")
       const clerselection = document.querySelectorAll(".insights-filter .select-wrap .clear-selection")
       const selectedtag = document.querySelector(".insights-filter .selected-tags")
-      let selectedArr = [];
+      const insightfilter = document.querySelector(".insights-filter");
+
 
 
 
@@ -384,6 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener("click", () => {
               currentPage = page;
               renderPost(filteredPosts);
+
+              insightfilter.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
             });
           }
           return btn;
