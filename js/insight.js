@@ -192,7 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const visiblePosts = posts.slice(start, end);
 
         if (showingCalc) {
-          showingCalc.textContent = `Showing ${start}-${end} results of ${totalPosts}`;
+          const from = start + 1;
+          const to = Math.min(end, totalPosts);
+          showingCalc.textContent = `Showing ${from}-${to} results of ${totalPosts}`;
         }
 
 
