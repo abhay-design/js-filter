@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
       let currentPage = 1;
       const postsPerPage = 21;
       // let filteredPosts = [];
@@ -35,20 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const option = this.querySelector('.option-wrap');
             const wasActive = this.classList.contains('active');
-            const checkedrows = el.querySelectorAll(".select-wrap .option-wrap .checkbox-row")
-
-            if (checkedrows) {
-              checkedrows.forEach(row => {
-                row.addEventListener('click', function (e) {
-                  e.stopPropagation();
-                  var inpt = this.querySelector("input")
-                  if (inpt) {
-                    inpt.checked = !inpt.checked; // ✅ toggle checked
-                  }
-                  applyFilter()
-                })
-              })
-            }
 
             outers.forEach(o => {
               o.classList.remove('active');
@@ -61,6 +49,18 @@ document.addEventListener('DOMContentLoaded', () => {
               if (option) option.classList.add('open');
             }
           });
+        });
+
+        document.addEventListener("click", function (e) {
+          const row = e.target.closest(".insights-filter .select-wrap .option-wrap .checkbox-row");
+          if (row) {
+            e.stopPropagation();
+            const inpt = row.querySelector("input");
+            if (inpt) {
+              inpt.checked = !inpt.checked;
+            }
+            applyFilter();
+          }
         });
 
         document.addEventListener('click', function (e) {
