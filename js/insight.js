@@ -11,12 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedtag = document.querySelector(".insights-filter .selected-tags")
       const insightfilter = document.querySelector(".insights-filter");
       const btnwithtext = document.querySelector(".insights-filter .btn-with-text")
-
-
-
-
-
-
+      const showingCalc = document.querySelector(".calc-result .showing-calc-result");
 
       let currentPage = 1;
       const postsPerPage = 21;
@@ -196,6 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const end = start + postsPerPage;
         const visiblePosts = posts.slice(start, end);
 
+        if (showingCalc) {
+          showingCalc.textContent = `Showing ${start}-${end} results of ${totalPosts}`;
+        }
+
 
         postcontainer.innerHTML = visiblePosts.map(post => {
           // extract image URL
@@ -342,8 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
           btnwithtext.appendChild(clearall);
         }
-
-
 
         let filtered = posts.filter(post => {
           let keep = true;
@@ -503,7 +500,6 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         });
       }
-
 
 
       handleClick()
