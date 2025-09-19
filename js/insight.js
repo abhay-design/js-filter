@@ -70,19 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       // added value from data into the list
-      const updateList = () => {
+      const updateList = (sourceData) => {
 
         const makeUniqueList = (arr) => [...new Set(arr.map(item => item.trim()).filter(Boolean))];
 
         // collect all data and remove ,
-        const allAudiences = data.flatMap(item =>
+        const allAudiences = sourceData.flatMap(item =>
           item.field_audience ? item.field_audience.split(",") : []
         );
-        const allProducts = data.flatMap(item =>
+        const allProducts = sourceData.flatMap(item =>
           item.field_product ? item.field_product.split(",") : []
         );
 
-        const contenttypes = [...new Set(data.map(item => item["field_content_type"]))];
+        const contenttypes = [...new Set(sourceData.map(item => item["field_content_type"]))];
 
         const authortypes = [...new Set(
           data
@@ -100,19 +100,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
         const uniqueContenttypes = makeUniqueList(contenttypes)
-        // const normalize = str => str.toLowerCase().trim()
-        //   .replace(/\s+/g, "-")
-        //   .replace(/[^a-z0-9\-_]/g, "");
-
+        const uniqueAuthors = makeUniqueList(authortypes);
 
 
         const buildList = (listContainer, items, key) => {
+          if (!listContainer) return;
           listContainer.innerHTML = "";
           items.forEach(type => {
             const safeId = normalize(type);
 
             let countNum = 0;
-            data.forEach(post => {
+            sourceData.forEach(post => {
               let values = [];
               if (key === "field_audience" || key === "field_product") {
                 values = (post[key] || "").split(",").map(v => normalize(v));
@@ -366,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
             keep = contentChecked.includes(value);
           }
 
+
           // Author filter
           if (keep && authorChecked.length) {
             const temp = document.createElement("div");
@@ -377,7 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
           return keep;
         });
+
         console.log(filtered);
+
+        updateList(filtered);
+
+        allChecked.forEach(id => {
+          const inputEl = document.getElementById(id);
+          if (inputEl) inputEl.checked = true;
+        });
 
         currentPage = 1;
         renderPost(filtered);
@@ -498,6 +505,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputs = parent.querySelectorAll("input[type='checkbox']");
             inputs.forEach(input => (input.checked = false));
 
+            selectedtag.innerHTML = "";
+            btnwithtext.innerHTML = "";
+
             applyFilter();
           });
         });
@@ -505,7 +515,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
       handleClick()
-      updateList()
+      updateList(posts);
+      // applySearch();
       renderPost(posts)
       Clearslection()
       search.addEventListener("input", applySearch);
