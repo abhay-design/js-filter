@@ -51,12 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
           if (row) {
             e.stopPropagation();
             const inpt = row.querySelector("input");
+
             if (inpt) {
               inpt.checked = !inpt.checked;
+
+              if (!inpt.checked) {
+                const existingTag = selectedtag.querySelector(`[data-filter-id="${inpt.id}"]`);
+                if (existingTag) {
+                  existingTag.remove();
+                }
+
+                if (!selectedtag.querySelector(".selected-val")) {
+                  btnwithtext.innerHTML = "";
+                }
+              }
             }
+
             applyFilter();
           }
         });
+
 
         document.addEventListener('click', function (e) {
           if (!e.target.closest('.select-wrap')) {
