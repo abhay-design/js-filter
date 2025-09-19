@@ -291,33 +291,47 @@ document.addEventListener('DOMContentLoaded', () => {
             typetag.classList.add("val");
             num.classList.add("num");
             removeBtn.className = "remove-filter cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-[#005677] text-darkGray text-[28px] transition-all duration-300 ease-in-out";
+
+
+            selectval.dataset.filterId = val;
+
             removeBtn.textContent = "×";
 
-            // show the value text
-            typetag.textContent = val;
-
-            const inputEl = document.getElementById(val);
-            if (inputEl) {
-              const label = inputEl.nextElementSibling?.textContent || val;
-              typetag.textContent = label;
-              num.textContent = `(${inputEl.getAttribute("data-count") || 0})`;
+            const inputAtCreate = document.getElementById(val);
+            if (inputAtCreate) {
+              typetag.textContent = inputAtCreate.nextElementSibling?.textContent || val;
+              num.textContent = `(${inputAtCreate.getAttribute("data-count") || 0})`;
             } else {
               typetag.textContent = val;
               num.textContent = "";
             }
 
-            removeBtn.addEventListener("click", () => {
-              if (inputEl) {
-                inputEl.checked = false;
-              }
-              selectval.remove();
-              applyFilter();
+            const clearFilter = function (e) {
+              e.stopPropagation();
+              const id = this.dataset.filterId;
+              const inputEl = document.getElementById(id);
+              if (inputEl) inputEl.checked = false;
 
-              if (document.querySelectorAll(".selected-val").length === 0) {
+              // remove the tag
+              this.remove();
+
+              // if none left, hide clear-all UI
+              if (!selectedtag.querySelector('.selected-val')) {
                 btnwithtext.innerHTML = "";
               }
-            });
 
+              // defer applyFilter to the next tick to avoid event/DOM race conditions
+              setTimeout(() => applyFilter(), 0);
+            };
+
+            // clicking the whole pill clears the filter
+            selectval.addEventListener("click", clearFilter);
+
+            // clicking the × also clears (stop propagation so only our handler runs)
+            removeBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              clearFilter.call(selectval, e);
+            });
 
             selectval.appendChild(typetag);
             selectval.appendChild(num);
@@ -330,10 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
           clearall.textContent = "Clear selection";
 
           clearall.addEventListener("click", () => {
-            // Uncheck all checked inputs
-            document.querySelectorAll(".checkbox-row input:checked").forEach(cb => {
-              cb.checked = false;
-            });
+            document.querySelectorAll(".checkbox-row input:checked").forEach(cb => cb.checked = false);
             selectedtag.innerHTML = "";
             btnwithtext.innerHTML = "";
             applyFilter();
@@ -341,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           btnwithtext.appendChild(clearall);
         }
+
 
         let filtered = posts.filter(post => {
           let keep = true;
