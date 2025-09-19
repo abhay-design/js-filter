@@ -114,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
         const uniqueContenttypes = makeUniqueList(contenttypes)
-        const uniqueAuthors = makeUniqueList(authortypes);
+        // const uniqueAuthors = makeUniqueList(authortypes);
 
 
-        const buildList = (listContainer, items, key) => {
+        const buildList = (listContainer, items, key,) => {
           if (!listContainer) return;
           listContainer.innerHTML = "";
           items.forEach(type => {
@@ -152,6 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
             input.type = "checkbox";
             input.id = safeId;
             input.setAttribute("data-count", countNum);
+
+            if (countNum === 0) {
+              input.disabled = true;
+              console.log('here');
+              li.classList.add('hidden')
+
+            }
 
             const label = document.createElement("label");
             label.htmlFor = safeId;
