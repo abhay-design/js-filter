@@ -121,6 +121,50 @@ img {
   cursor: pointer;
 }
 
+.insights-filter .card-outer .col-three {
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .card-outer .card-wrap {
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .card-outer .img-box {
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .card-outer .text-box {
+  transition: all 0.3s ease-in-out;
+}
+
+.insights-filter .card-outer.list-view .col-three {
+  width: 100%;
+  padding: 0;
+  min-height: 255px;
+}
+
+.insights-filter .card-outer.list-view .card-wrap {
+  padding: 16px 20px;
+  display: flex;
+  /* flex-wrap: wrap; */
+}
+
+.insights-filter .card-outer.list-view .img-box {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: 0;
+  transform: unset;
+}
+
+.insights-filter .card-outer.list-view .text-box {
+  padding-left: 20px;
+}
+
+.layout-types .icon.active svg path {
+  fill: #f26027;
+}
+
 .insights-filter .selected-val span {
   font-size: 18px;
   font-weight: 600;

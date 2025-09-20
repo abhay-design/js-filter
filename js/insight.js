@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const outers = document.querySelectorAll('.dropdown-outer .select-wrap');
       const postcontainer = document.querySelector('.insights-filter .card-outer .wrapper');
+      const cardouter = document.querySelector('.insights-filter .card-outer ')
       const paginationContainer = document.querySelector(".ajax-pagination");
       const posts = data;
       const search = document.querySelector(".search-outer input")
@@ -12,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const insightfilter = document.querySelector(".insights-filter");
       const btnwithtext = document.querySelector(".insights-filter .btn-with-text")
       const showingCalc = document.querySelector(".calc-result .showing-calc-result");
+      const icons = document.querySelectorAll('.layout-wrap .layout-types .icon')
+
 
       let currentPage = 1;
       const postsPerPage = 21;
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const uniqueAudiences = makeUniqueList(allAudiences);
         const uniqueProducts = makeUniqueList(allProducts);
         const uniqueContenttypes = makeUniqueList(contenttypes)
-        // const uniqueAuthors = makeUniqueList(authortypes);
+        const uniqueAuthors = makeUniqueList(authortypes);
 
 
         const buildList = (listContainer, items, key,) => {
@@ -191,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buildList(document.querySelector("#audienceList"), uniqueAudiences, "field_audience");
         buildList(document.querySelector("#productList"), uniqueProducts, "field_product");
         buildList(document.querySelector("#content-typeList"), uniqueContenttypes, "field_content_type");
-        buildList(document.querySelector("#authorList"), authortypes, "field_author");
+        buildList(document.querySelector("#authorList"), uniqueAuthors, "field_author");
       }
 
       // print all the cards
@@ -546,12 +549,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      const Cardshape = () => {
+        if (icons.length > 0) {
+          icons[0].classList.add('active');
+        }
+        icons.forEach(icon => {
+          icon.addEventListener('click', function (e) {
+            icons.forEach(el => el.classList.remove('active'));
+            icon.classList.add('active')
+
+            if (icons[1] && icons[1].classList.contains('active')) {
+              cardouter.classList.add('list-view')
+            } else {
+              cardouter.classList.remove('list-view')
+            }
+          })
+        })
+      }
+
 
       handleClick()
       updateList(posts);
       // applySearch();
       renderPost(posts)
       Clearslection()
+      Cardshape()
       search.addEventListener("input", applySearch);
     })
 })

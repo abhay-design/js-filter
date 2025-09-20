@@ -82,19 +82,37 @@
     </div>
     <div class="layout-wrap bg-white py-[20px]">
       <div class="container">
-        <div class="wrap flex space-between items-center">
-          <div class="selected-tags">
-
+        <div class="wrap flex justify-between items-center">
+          <div class="showing-result flex flex-wrap items-center">
+            <div class="selected-tags">
+            </div>
+            <div class="btn-with-text">
+            </div>
+            <div class="calc-result">
+              <span class="showing-calc-result"></span>
+            </div>
           </div>
-          <div class="btn-with-text">
-          </div>
-          <div class="calc-result">
-            <span class="showing-calc-result"></span>
+          <div class="layout-types inline-flex justify-end items-center max-w-[150px] w-full">
+            <span class="inline-block mr-[16px] text-[18px] font-normal text-[#002a3b]">View as:</span>
+            <div
+              class="icon grid relative w-[24px] h-[24px] mr-[16px] cursor-pointer transition-all duration-300 ease-in-out">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M11 0H0V11H11V0ZM11 13H0V24H11V13ZM13 0H24V11H13V0ZM24 13H13V24H24V13Z" fill="#98a4af"></path>
+              </svg>
+            </div>
+            <div class="icon list relative w-[24px] h-[24px] cursor-pointer transition-all duration-300 ease-in-out">
+              <svg width="24" height="24" class="w-full h-full" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M24 0H0V3H24V0ZM24 14H0V17H24V14ZM0 7H24V10H0V7ZM24 21H0V24H24V21Z" fill="#98A4AF"></path>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="card-outer py-[64px] bg-[#f2f2f3]">
+    <div class="card-outer py-[64px] bg-[#f2f2f3] ">
       <div class="container">
         <div class="wrapper flex flex-wrap ml-[-12px] w-[calc(100%+24px)]">
 
