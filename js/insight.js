@@ -558,11 +558,15 @@ document.addEventListener('DOMContentLoaded', () => {
             icons.forEach(el => el.classList.remove('active'));
             icon.classList.add('active')
 
-            if (icons[1] && icons[1].classList.contains('active')) {
-              cardouter.classList.add('list-view')
-            } else {
-              cardouter.classList.remove('list-view')
-            }
+            setTimeout(() => {
+              if (icons[1] && icons[1].classList.contains('active')) {
+                cardouter.classList.add('list-view');
+              } else {
+                cardouter.classList.remove('list-view');
+              }
+
+              cardouter.classList.remove('opacity-0');
+            }, 100);
           })
         })
       }
