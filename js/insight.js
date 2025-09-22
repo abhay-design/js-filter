@@ -25,6 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // helper normalize fn
       const normalize = str => str.toLowerCase().trim().replace(/\s+/g, "-");
 
+
+      // refresh count values based on current post
+      const refreshSelectedTagCounts = () => {
+        selectedtag.querySelectorAll(".selected-val").forEach(pill => {
+          const id = pill.dataset.filterId;
+          const cb = document.getElementById(id);
+          const numEl = pill.querySelector(".num");
+          if (cb && numEl) {
+            const n = cb.getAttribute("data-count") || 0;
+            numEl.textContent = `(${n})`;
+          }
+        });
+      };
+
       // clicking funtion for the lists
       const handleClick = () => {
         outers.forEach(el => {
@@ -420,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (inputEl) inputEl.checked = true;
         });
 
+        refreshSelectedTagCounts();
         currentPage = 1;
         renderPost(filtered);
         filteredByFilters = filtered;
