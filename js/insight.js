@@ -102,15 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const contenttypes = [...new Set(sourceData.map(item => item["field_content_type"]))];
 
         const authortypes = [...new Set(
-          data
-            .map(item => {
-              if (!item.field_author) return null;
-              const temp = document.createElement("div");
-              temp.innerHTML = item.field_author;
-              let text = temp.textContent.trim();
-              return text.split(",")[0].trim();
-            })
-            .filter(Boolean)
+          sourceData.map(item => {
+            if (!item.field_author) return null;
+            const temp = document.createElement("div");
+            temp.innerHTML = item.field_author;
+            let text = temp.textContent.trim();
+            return text.split(",")[0].trim();
+          }).filter(Boolean)
         )];
 
 
